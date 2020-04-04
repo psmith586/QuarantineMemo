@@ -3,11 +3,11 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default class Home extends Component {
+export default class MemoView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>I'm the Home component</Text>
+        <Text>I'm the MemoView component</Text>
       </View>
     );
   }
