@@ -17,12 +17,20 @@
     "@react-native-firebase/database": "^6.3.4",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
+<<<<<<< HEAD
+=======
     "firebase": "^7.14.0",
+>>>>>>> 35d85613a441c3123858ca985960d5cd68b021db
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
-    "react-native-screens": "^2.4.0"
+    "react-native-screens": "^2.4.0",
+    "react-navigation": "^4.3.7",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
