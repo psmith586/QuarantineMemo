@@ -1,42 +1,45 @@
 # QuarantineMemo
 
 set up: 
+---------
 
-install android studio
-  SDK Platforms
-  --------------
-  SDK: 9.0 (Pie)
-  platform: 28
-  //might use
-  Sources: for 28
-  Google APIs: both available images
-  Google Play: both available images
+install android studio with...
+SDK Platforms
+  
+SDK: 9.0 (Pie)
+platform: 28
+Sources: for 28
+Google APIs: both available images
+Google Play: both available images
 
-  SDK Tools
-  --------------
-  build-tools: 28.03 (29.03 also installed)
-  SDK command line tools: latest
-  Android Emulator: 30.05
-  SDK platform tools: 29.06
-  Intell HAXM installer: latest
+SDK Tools
+  
+build-tools: 28.03 (29.03 also installed)
+SDK command line tools: latest
+Android Emulator: 30.05
+SDK platform tools: 29.06
+Intell HAXM installer: latest
 
-  Emulator
-  --------------
-  Pixel 3a API 28
+Emulator
+  
+Pixel 3a API 28
 
 init:
-  git clone repo
+--------
+git clone repo
 
-  copy google-services.json to ./android/app/ (from firebase concole)
+copy google-services.json to ./android/app/ (from firebase concole)
 
-  npm install
+npm install
 
-  cd android && ./gradlew clean (--stacktrace, --debug 'some warning command')
+cd android && ./gradlew clean (--stacktrace, --debug 'some warning command')
 
 build:
-  open android/ in android studio (gradle should sync automatically)
+--------
+open android/ in android studio (gradle should sync automatically)
 
 run:
+---------
 QuarantineMemo$ npm start 
 //mock js server should start, react native icon displayed in shell
 
