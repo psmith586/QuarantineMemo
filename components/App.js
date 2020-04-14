@@ -1,22 +1,11 @@
 /* @flow */
-import React, {Component} from 'react';
+import React from 'react'
 //nav
-import Navigator from './Navigator';
-//redux
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-//import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import Navigator from './Navigator'
 
-//const middleware = applyMiddeware(thunk);
-const store = createStore(rootReducer);
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Navigator />
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Navigator />
+);
+
+export default App;
