@@ -1,5 +1,5 @@
 export const emailValidator = email => {
-  const reg = /\S+@\S+\. \S+/;
+  const reg = /\S+@\S+\.\S+/;
 
   if(!email || email.length <= 0) return 'Email cannot be empty';
   if(!reg.test(email)) return 'Please enter a valid email';

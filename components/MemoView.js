@@ -7,7 +7,7 @@ export default class MemoView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>I'm the MemoView component</Text>
+        <Text>Single Memo</Text>
       </View>
     );
   }

@@ -1,8 +1,7 @@
 /* @flow */
 import React from 'react'
-//nav
 import Navigator from './Navigator'
-
+import '@react-native-firebase/auth'
 
 const App = () => (
   <Navigator />

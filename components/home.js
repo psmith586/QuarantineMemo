@@ -1,20 +1,22 @@
 /* @flow */
 
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { memo } from 'react'
+import { View, Button } from 'react-native'
+import { logoutUser } from './utils/api'
 
-export default class Home extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>I'm the Home component</Text>
-      </View>
-    );
-  }
-}
+const Home = () => {
+  
+  return(
+    <View>
+      <Button title='createMemo' mode='outlined'>
+        Create a Memo
+      </Button>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+      <Button title='logout' mode='outlined' onPress={() => logoutUser()}>
+        Logout
+      </Button>
+    </View>
+  );
+};
+
+export default memo(Home);
