@@ -1,24 +1,25 @@
 /* @flow */
 
-import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import React, { memo } from 'react'
+import { ActivityIndicator, View } from 'react-native'
+import auth from '@react-native-firebase/auth'
 
-export default class Loading extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>I'm the Loading component</Text>
-      </View>
-    );
-  }
-}
+const Loading = ({ navigation }) => {
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+  auth().onAuthStateChanged(user => {
+    if (user) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Login');
+    }
+  });
+
+  return(
+    <View>
+      <ActivityIndicator size='large' />
+    </View>
+  );
+
+};
+
+export default memo(Loading);

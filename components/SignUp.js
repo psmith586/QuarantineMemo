@@ -1,24 +1,29 @@
+/* @flow */
 import React, { memo, useState } from 'react'
-import { TouchableOpacity, Text, View, Button } from 'react-native'
-import { emailValidator, passwordValidator } from './utils/validator'
-import { loginUser } from './utils/api'
+import { Text, View, TouchableOpacity, Button } from 'react-native'
+
+import { emailValidator, nameValidator, passwordValidator } from './utils/validator'
+
+import { signUpUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
 import { TextInput } from 'react-native-gesture-handler'
 
-
-const Login = ({ navigation }) => {
+const SignUp = ({ navigation }) => {
+  const [name, setName] = useState({ value:'', error: '' });
   const [email, setEmail] = useState({ value:'', error: '' });
   const [password, setPassword] = useState({ value:'', error: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const onLoginPressed = async () => {
+  const onSignUpPressed = async () => {
     if (loading) return;
 
+    const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
-    if (emailError || passwordError) {
+    if (emailError || nameError || passwordError) {
+      setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
 
@@ -27,7 +32,8 @@ const Login = ({ navigation }) => {
 
     setLoading(true);
 
-    const response = await loginUser({
+    const response = await signUpUser({
+      name: name.value,
       email: email.value,
       password: password.value
     });
@@ -37,13 +43,22 @@ const Login = ({ navigation }) => {
     }
 
     setLoading(false);
+
   };
 
-  return(
+  return (
     <View>
-      <Header>Login</Header>
-
+      <Header>Create Account</Header>
       <TextInput
+        label='Username'
+        returnKeyType='next'
+        value={name.value}
+        onChangeText={text => setName({ value: text, error: '' })}
+        error={!!name.error}
+        errorText={name.error}  
+      />
+
+      <TextInput 
         label='Email'
         returnKeyType='next'
         value={email.value}
@@ -56,7 +71,7 @@ const Login = ({ navigation }) => {
         keyboardType='email-address'
       />
 
-      <TextInput
+      <TextInput 
         label='Password'
         returnKeyType='done'
         value={password.value}
@@ -67,25 +82,23 @@ const Login = ({ navigation }) => {
         autoCapitalize='none'
       />
 
-      <Button 
-        title='Login' 
-        loading={loading} 
-        mode='contained' 
-        onPress={onLoginPressed}
+      <Button
+        title='SignUp'
+        loading={loading}
+        mode='contained'
+        onPress={onSignUpPressed}
       >
-        Login
+        Sign Up
       </Button>
 
       <View>
-        <Text>Don't Have an Account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text>Sign Up</Text>
+        <Text>Already have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text>Login</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View>  
   );
-
 };
 
-export default memo(Login);
- 
+export default memo(SignUp);
