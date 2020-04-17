@@ -26,25 +26,35 @@ Pixel 3a API 28
 
 init:
 --------
-git clone repo
+download "google-services.json" from online firebase GUI
+download "Android Studio" and set up Emulator 
 
-copy google-services.json to ./android/app/ (from firebase concole)
+$ git clone repo
 
-npm install
+copy "google-services.json" to ./android/app/
 
-cd android && ./gradlew clean (--stacktrace, --debug 'some warning command')
+create a file "local.properties" in ./android/
+GOTO "SDK Manager" in Android Studio
+Copy "Android SDK Location:"
+Write "sdk.dir = Android SDK Location" into local.properties
+    For example: "sdk.dir = /Users/Robin/Library/Android/sdk"
+
+$ npm install
+$ cd android 
+$ ./gradlew clean
 
 build:
 --------
-open android/ in android studio (gradle should sync automatically)
+open android/ in Android Studio (gradle should sync automatically)
+Click "Build" (hammer icon)
 
 run:
 ---------
 QuarantineMemo$ npm start 
-//mock js server should start, react native icon displayed in shell
 
+//mock js server should start, react native icon displayed in shell
 //in android studio configuration button should display 'app' with emulator //Pixel 3...
 
-Click Run 'app'
+Click Run 'app' in Android Studio (play button)
 
 //emulator should begin compiling code from mock server and display the app
