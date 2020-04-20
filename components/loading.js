@@ -10,7 +10,7 @@ const Loading = ({ navigation }) => {
     if (user) {
       navigation.navigate('Home');
     } else {
-      navigation.navigate('Login');
+      navigation.navigate('Home');
     }
   });
 
