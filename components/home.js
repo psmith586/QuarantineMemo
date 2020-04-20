@@ -24,13 +24,13 @@ const Home = () => {
   return (
     <>
       <Appbar>
-        <Appbar.Content title={'TODOs List'} />
+        <Appbar.Content title={'Memos'} />
       </Appbar>
       <ScrollView style={{flex: 1}}>
-        <Text>List of TODOs!</Text>
+        <Text>List of Memoss!</Text>
       </ScrollView>
       <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} />
-      <Button onPress={() => addMemo()}>Add TODO</Button>
+      <Button onPress={() => addMemo()}>New Memo</Button>
     </>
   );
 };

@@ -5,6 +5,6 @@ export const createMemo = () => {
   
 };
 
-// export const getAllMemos = () => {
-//     return firestore.getMemos();
-// };
+export const getAllMemos = () => {
+    return firestore.getMemos();
+};
