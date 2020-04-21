@@ -1,19 +1,51 @@
 /* @flow */
 
-import React, { useState, memo } from 'react'
-import {Text, ScrollView} from 'react-native';
-import { logoutUser } from './utils/api'
-import{ createMemo, getAllMemos } from './utils/db-api'
-import { diffClamp } from 'react-native-reanimated';
-import { Appbar, TextInput, Button } from 'react-native-paper';
-
-
+import React, { useState, useEffect, memo } from 'react'
+import {FlatList} from 'react-native';
+import { Appbar, TextInput, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 
+/* this renders each DB entry in 'memo_test' */
+function Memo({ content }) {
+  return (
+    <List.Item
+      title={content}
+    />
+  );
+}
+
+/* this is the entry point for the file */
 const Home = () => {
-  const [ aMemo, setAMemo ] = useState('');
+  const [ aMemo, setAMemo ] = useState(''); // for adding to DB
+  const [ loading, setLoading ] = useState(true); // for realtime update
+  const [ memos, setMemos ] = useState([]); // for rendering
+
   const ref = firestore().collection('memo_test');
 
+
+  
+  /* "Every time a document is created, deleted or modified on the collection, 
+     this method will trigger and update component state in realtime" */
+  useEffect(() => {
+    return ref.onSnapshot(querySnapshot => {
+      const list = [];
+      querySnapshot.forEach(doc => {
+        const { content } = doc.data();
+        list.push({
+          id: doc.id,
+          content
+        });
+      });
+
+      setMemos(list);
+
+      if (loading) {
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  /* Add memo to DB */
   async function addMemo() {
     await ref.add({
       content: aMemo
@@ -21,37 +53,28 @@ const Home = () => {
     setAMemo('');
   }
 
-  return (
+  /* Render to Phone */
+  return (    
     <>
-      <Appbar>
+      {/* Similar to NavBar but without navigation */}
+      <Appbar> 
         <Appbar.Content title={'Memos'} />
       </Appbar>
-      <ScrollView style={{flex: 1}}>
-        <Text>List of Memoss!</Text>
-      </ScrollView>
+
+      {/* render each DB entry */}
+      <FlatList 
+        style={{flex: 1}}
+        data={memos}
+        renderItem={({ item }) => <Memo {...item} />}
+      />
+
+      {/* Text bar for user to enter info */}
       <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} />
+
+      {/* Button that triggers new entry to DB */}
       <Button onPress={() => addMemo()}>New Memo</Button>
     </>
   );
 };
-
-// const Home = () => {
-  
-
-
-//   return(
-//     <View>
-//       <Button title='createMemo' mode='outlined'>
-//         Create a Memo
-//       </Button>
-
-
-
-//       <Button title='logout' mode='outlined' onPress={() => logoutUser()}>
-//         Logout
-//       </Button>
-//     </View>
-//   );
-// };
 
 export default memo(Home);
