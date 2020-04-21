@@ -1,5 +1,5 @@
 /* @flow */
-
+// https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo } from 'react'
 import {FlatList} from 'react-native';
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
