@@ -5,6 +5,8 @@ import {FlatList} from 'react-native';
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 
+import { Drawer } from './App'
+
 /* this renders each DB entry in 'memo_test' */
 function Memo({ content }) {
   return (
@@ -15,7 +17,7 @@ function Memo({ content }) {
 }
 
 /* this is the entry point for the file */
-const Home = () => {
+export const Memos = () => {
   const [ aMemo, setAMemo ] = useState(''); // for adding to DB
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
@@ -52,7 +54,7 @@ const Home = () => {
     });
     setAMemo('');
   }
-
+  
   /* Render to Phone */
   return (    
     <>
@@ -77,4 +79,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default memo(Memos);

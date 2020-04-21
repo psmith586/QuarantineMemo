@@ -1,7 +1,7 @@
 /* @flow */
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login';
-import Home from './Home';
+import Home from './Memos';
 import MemoView from './MemoView';
 import SignUp from './SignUp';
 import Loading from './Loading'

@@ -1,14 +1,14 @@
 /* @flow */
 import React, { memo, useState } from 'react'
-import { Text, View, TouchableOpacity, Button } from 'react-native'
-
+import { Text, View, TouchableOpacity } from 'react-native'
 import { emailValidator, nameValidator, passwordValidator } from './utils/validator'
-
 import { signUpUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
-import { TextInput } from 'react-native-gesture-handler'
+import { Appbar, TextInput, Button, List } from 'react-native-paper';
 
-const SignUp = ({ navigation }) => {
+export const signupTitle = 'sign up';
+
+export const SignUp = ({ navigation }) => {
   const [name, setName] = useState({ value:'', error: '' });
   const [email, setEmail] = useState({ value:'', error: '' });
   const [password, setPassword] = useState({ value:'', error: '' });
@@ -48,7 +48,9 @@ const SignUp = ({ navigation }) => {
 
   return (
     <View>
-      <Header>Create Account</Header>
+      <Appbar> 
+        <Appbar.Content title={'Sign Up'} />
+      </Appbar>
       <TextInput
         label='Username'
         returnKeyType='next'
