@@ -29,6 +29,7 @@ export const Memos = () => {
   /* "Every time a document is created, deleted or modified on the collection, 
      this method will trigger and update component state in realtime" */
   useEffect(() => {
+    let mounted = true; // fixed warning https://www.debuggr.io/react-update-unmounted-component/
     return ref.onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
@@ -44,6 +45,7 @@ export const Memos = () => {
       if (loading) {
         setLoading(false);
       }
+      mounted = false; // fixed warning
     });
   }, []);
 

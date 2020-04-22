@@ -13,16 +13,9 @@ export const Logout = ({ navigation }) => {
 
   const onLogoutPressed = async () => {
     if (loading) return;
-
     setLoading(true);
-
-    const response = await logoutUser();
-  
-      if (response.error) {
-        setError(response.error);
-      }
-  
-      setLoading(false);
+    logoutUser();
+    setLoading(false);
   };
 
   return(
