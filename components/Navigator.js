@@ -1,20 +1,22 @@
 /* @flow */
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login';
-import Home from './Memos';
+import Memos from './Memos';
 import MemoView from './MemoView';
 import SignUp from './SignUp';
 import Loading from './Loading';
 import SideMenu from './SideMenu';
+import CreateMemo from './CreateMemo';
 
 const Navigator = createSwitchNavigator(
   {
-    Home,
+    Memos,
     Login,
     SignUp,
     MemoView,
     SideMenu,
-    Loading
+    Loading,
+    CreateMemo
   },
   {
     initialRouteName: 'Loading',

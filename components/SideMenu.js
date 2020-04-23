@@ -7,9 +7,11 @@ import { Memos } from './Memos'
 import { Login } from './Login'
 import { SignUp } from './SignUp'
 import { Logout } from './Logout'
+import { CreateMemo } from './CreateMemo'
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+
 
 export const Drawer = createDrawerNavigator();
 
@@ -17,10 +19,11 @@ function SideMenu() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen name="memos" component={Memos} />
-        <Drawer.Screen name="login" component={Login} />
-        <Drawer.Screen name="sign up" component={SignUp} />
-        <Drawer.Screen name="logout" component={Logout} />
+        <Drawer.Screen name='memos' component={Memos} />
+        <Drawer.Screen name='login' component={Login} />
+        <Drawer.Screen name='sign up' component={SignUp} />
+        <Drawer.Screen name='logout' component={Logout} />
+        <Drawer.Screen name='createMemo' component={CreateMemo} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

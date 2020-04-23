@@ -1,9 +1,11 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo } from 'react'
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+import { logoutUser } from './utils/api'
 
 import { Drawer } from './App'
 
@@ -17,8 +19,7 @@ function Memo({ content }) {
 }
 
 /* this is the entry point for the file */
-export const Memos = () => {
-  const [ aMemo, setAMemo ] = useState(''); // for adding to DB
+export const Memos = ({ navigation }) => {
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
@@ -48,21 +49,13 @@ export const Memos = () => {
       mounted = false; // fixed warning
     });
   }, []);
-
-  /* Add memo to DB */
-  async function addMemo() {
-    await ref.add({
-      content: aMemo
-    });
-    setAMemo('');
-  }
   
   /* Render to Phone */
   return (    
     <>
       {/* Similar to NavBar but without navigation */}
       <Appbar> 
-        <Appbar.Content title={'Memos'} />
+        <Appbar.Content title={'Memos'} subtitle={auth().currentUser.displayName}/>
       </Appbar>
 
       {/* render each DB entry */}
@@ -72,11 +65,17 @@ export const Memos = () => {
         renderItem={({ item }) => <Memo {...item} />}
       />
 
-      {/* Text bar for user to enter info */}
-      <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} />
-
       {/* Button that triggers new entry to DB */}
-      <Button onPress={() => addMemo()}>New Memo</Button>
+      <Button onPress={() => navigation.navigate('createMemo')}>Create Memo</Button>
+
+      {/*Logout button*/}
+      <Button
+        title='Logout'
+        mode='contained'
+        onPress={logoutUser}
+      >
+        Logout
+      </Button>
     </>
   );
 };
