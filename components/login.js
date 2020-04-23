@@ -1,12 +1,11 @@
 import React, { memo, useState } from 'react'
-import { TouchableOpacity, Text, View, Button } from 'react-native'
+import { TouchableOpacity, Text, View } from 'react-native'
 import { emailValidator, passwordValidator } from './utils/validator'
 import { loginUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
-import { TextInput } from 'react-native-gesture-handler'
+import { Appbar, TextInput, Button, List } from 'react-native-paper';
 
-
-const Login = ({ navigation }) => {
+export const Login = ({ navigation }) => {
   const [email, setEmail] = useState({ value:'', error: '' });
   const [password, setPassword] = useState({ value:'', error: '' });
   const [loading, setLoading] = useState(false);
@@ -41,7 +40,9 @@ const Login = ({ navigation }) => {
 
   return(
     <View>
-      <Header>Login</Header>
+      <Appbar> 
+        <Appbar.Content title={'Login'} />
+      </Appbar>
 
       <TextInput
         label='Email'

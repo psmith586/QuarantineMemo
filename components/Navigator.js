@@ -1,10 +1,11 @@
 /* @flow */
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login';
-import Home from './Home';
+import Home from './Memos';
 import MemoView from './MemoView';
 import SignUp from './SignUp';
-import Loading from './Loading'
+import Loading from './Loading';
+import SideMenu from './SideMenu';
 
 const Navigator = createSwitchNavigator(
   {
@@ -12,6 +13,7 @@ const Navigator = createSwitchNavigator(
     Login,
     SignUp,
     MemoView,
+    SideMenu,
     Loading
   },
   {

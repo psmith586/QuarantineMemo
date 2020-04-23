@@ -8,7 +8,7 @@ const Loading = ({ navigation }) => {
 
   auth().onAuthStateChanged(user => {
     if (user) {
-      navigation.navigate('Home');
+      navigation.navigate('SideMenu');
     } else {
       navigation.navigate('Login');
     }
