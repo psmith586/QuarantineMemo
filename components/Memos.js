@@ -4,16 +4,21 @@ import React, { useState, useEffect, memo } from 'react'
 import {FlatList} from 'react-native';
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
-
+import auth from '@react-native-firebase/auth';
 import { Drawer } from './App'
 
 /* this renders each DB entry in 'memo_test' */
-function Memo({ content }) {
-  return (
-    <List.Item
-      title={content}
-    />
-  );
+function Memo({ userID, content }) {
+  let uid = auth().currentUser.uid // current user id 
+  if(auth().currentUser.uid == userID){
+    return (
+      <List.Item
+        title={content}
+      />
+    );
+  } else {
+    return null 
+  }
 }
 
 /* this is the entry point for the file */
@@ -22,21 +27,19 @@ export const Memos = () => {
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
-  const ref = firestore().collection('memo_test');
-
-
+  const ref = firestore().collection('memo_user');
   
   /* "Every time a document is created, deleted or modified on the collection, 
      this method will trigger and update component state in realtime" */
   useEffect(() => {
-    let mounted = true; // fixed warning https://www.debuggr.io/react-update-unmounted-component/
     return ref.onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { content } = doc.data();
+        const { userID, content } = doc.data();
         list.push({
           id: doc.id,
-          content
+          content,
+          userID
         });
       });
 
@@ -45,14 +48,15 @@ export const Memos = () => {
       if (loading) {
         setLoading(false);
       }
-      mounted = false; // fixed warning
     });
   }, []);
 
   /* Add memo to DB */
   async function addMemo() {
+    let uid = auth().currentUser.uid // current user id 
     await ref.add({
-      content: aMemo
+      content: aMemo,
+      userID: uid
     });
     setAMemo('');
   }
