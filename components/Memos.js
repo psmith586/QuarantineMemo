@@ -5,30 +5,15 @@ import {FlatList} from 'react-native';
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
-import { Drawer } from './App'
-
-/* this renders each DB entry in 'memo_test' */
-function Memo({ userID, content }) {
-  let uid = auth().currentUser.uid // current user id 
-  if(auth().currentUser.uid == userID){
-    return (
-      <List.Item
-        title={content}
-      />
-    );
-  } else {
-    return null 
-  }
-}
+import { MemoView } from './MemoView'
 
 /* this is the entry point for the file */
-export const Memos = () => {
+export const Memos = ({ navigation }) => {
   const [ aMemo, setAMemo ] = useState(''); // for adding to DB
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
   const ref = firestore().collection('memo_user');
-  
   /* "Every time a document is created, deleted or modified on the collection, 
      this method will trigger and update component state in realtime" */
   useEffect(() => {
@@ -53,12 +38,25 @@ export const Memos = () => {
 
   /* Add memo to DB */
   async function addMemo() {
-    let uid = auth().currentUser.uid // current user id 
     await ref.add({
       content: aMemo,
-      userID: uid
+      userID: auth().currentUser.uid
     });
     setAMemo('');
+  }
+
+  /* this renders each DB entry in 'memo_test' */
+  function RenderEachMemo({ id, userID, content }) {
+    if(auth().currentUser.uid == userID){
+      return (
+        <List.Item
+          title={content}
+          onPress={() => navigation.navigate('memo', { docID: id })}
+        />
+      );
+    } else {
+      return null 
+    }
   }
   
   /* Render to Phone */
@@ -73,7 +71,8 @@ export const Memos = () => {
       <FlatList 
         style={{flex: 1}}
         data={memos}
-        renderItem={({ item }) => <Memo {...item} />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <RenderEachMemo {...item} />}
       />
 
       {/* Text bar for user to enter info */}
