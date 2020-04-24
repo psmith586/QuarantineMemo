@@ -20,50 +20,31 @@ export const CreateMemo = ({ navigation }) => {
   const onSubmitPressed = async () => {
 
     if(loading) return;
-    
-    let checkBlock = {
-      hasCough: '',
-      hasFever: '',
-      hasFatigue: '',
-      hasBreathing: '',
-    };
 
-    {/*handle checkboxes*/}
-    if (cough) {
-      checkBlock.hasCough = 'yes'
-    }else{
-      checkBlock.hasCough = 'no'
-    }
-
-    if (fever) {
-      checkBlock.hasFever = 'yes'
-    }else{
-      checkBlock.hasFever = 'no'
-    }
-
-    if (fatigue) {
-      checkBlock.hasFatigue = 'yes'
-    }else{
-      checkBlock.hasFatigue = 'no'
-    }
-
-    if (breathing) {
-      checkBlock.hasBreathing = 'yes'
-    }else{
-      checkBlock.hasBreathing = 'no'
-    }
+    let hasCough = (cough.checked ? 'yes' : 'no');
+    let hasFever = (fever.checked ? 'yes' : 'no');
+    let hasFatigue = (fatigue.checked ? 'yes' : 'no');
+    let hasBreathing = (breathing.checked ? 'yes' : 'no');
 
     setLoading(true);
 
-    const response = await createMemo( date, location, checkBlock, note );
+    const response = await createMemo({ 
+      date: date.value, 
+      location: location.value, 
+      hasCough: hasCough,
+      hasFever: hasFever,
+      hasFatigue: hasFatigue,
+      hasBreathing: hasBreathing, 
+      note: note.value 
+    });
 
     if (response.error){
       setError(response.error);
       setLoading(false);
     } else {
-
-    navigation.navigate('memos');
-
+      setLocation({ value: '' });
+      setNote({ value: '' });
+      navigation.navigate('memos'); 
     }
 
   }; 
@@ -103,7 +84,7 @@ export const CreateMemo = ({ navigation }) => {
       
       <Checkbox 
         status={fever.checked ? 'checked' : 'unchecked'}
-        onPress={() => setFever({ checked: !fatigue.checked })}
+        onPress={() => setFever({ checked: !fever.checked })}
       />
       <Text>Fever</Text>
       
