@@ -13,6 +13,11 @@ export const CreateMemo = ({ navigation }) => {
   const [fever, setFever] = useState({ checked: false });
   const [fatigue, setFatigue] = useState({ checked: false });
   const [breathing, setBreathing] = useState({ checked: false });
+  const [headache, setHeadache] = useState({ checked: false });
+  const [chills, setChills] = useState({ checked: false });
+  const [pain, setPain] = useState({ checked: false });
+  const [throat, setThroat] = useState({ checked: false });
+  const [smell, setSmell] = useState({ checked: false });
   const [note, setNote] = useState({ value: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -35,6 +40,11 @@ export const CreateMemo = ({ navigation }) => {
     let hasFever = (fever.checked ? 'yes' : 'no');
     let hasFatigue = (fatigue.checked ? 'yes' : 'no');
     let hasBreathing = (breathing.checked ? 'yes' : 'no');
+    let hasHeadache = (headache.checked ? 'yes' : 'no');
+    let hasChills = (chills.checked ? 'yes' : 'no');
+    let hasPain = (pain.checked ? 'yes' : 'no');
+    let hasThroat = (throat.checked ? 'yes' : 'no');
+    let hasSmell = (smell.checked ? 'yes' : 'no');
 
     setLoading(true);
 
@@ -44,7 +54,12 @@ export const CreateMemo = ({ navigation }) => {
       hasCough: hasCough,
       hasFever: hasFever,
       hasFatigue: hasFatigue,
-      hasBreathing: hasBreathing, 
+      hasBreathing: hasBreathing,
+      hasHeadache: hasHeadache,
+      hasChills: hasChills,
+      hasPain: hasPain,
+      hasSmell: hasSmell,
+      hasThroat: hasThroat, 
       note: note.value 
     });
 
@@ -108,6 +123,36 @@ export const CreateMemo = ({ navigation }) => {
         onPress={() => setBreathing({ checked: !breathing.checked })}
       />
       <Text>Difficulty Breathing</Text>
+
+      <Checkbox 
+        status={headache.checked ? 'checked' : 'unchecked'}
+        onPress={() => setHeadache({ checked: !headache.checked })}
+      />
+      <Text>Headache</Text>
+
+      <Checkbox 
+        status={throat.checked ? 'checked' : 'unchecked'}
+        onPress={() => setThroat({ checked: !throat.checked })}
+      />
+      <Text>Sore Throat</Text>
+
+      <Checkbox 
+        status={smell.checked ? 'checked' : 'unchecked'}
+        onPress={() => setSmell({ checked: !smell.checked })}
+      />
+      <Text>Loss of Taste/Smell</Text>
+
+      <Checkbox 
+        status={chills.checked ? 'checked' : 'unchecked'}
+        onPress={() => setChills({ checked: !chills.checked })}
+      />
+      <Text>Chills/Shaking</Text>
+
+      <Checkbox 
+        status={pain.checked ? 'checked' : 'unchecked'}
+        onPress={() => setPain({ checked: !pain.checked })}
+      />
+      <Text>Muscle Pain</Text>
 
       {/*notes input*/}
       <TextInput

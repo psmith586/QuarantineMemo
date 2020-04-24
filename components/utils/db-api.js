@@ -1,8 +1,22 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 
-export const createMemo = async ({ date, location, hasCough, hasFever, hasFatigue, hasBreathing, note }) => {
-  try{
+export const createMemo = async (
+  { date, 
+    location, 
+    hasCough, 
+    hasFever, 
+    hasFatigue, 
+    hasBreathing,
+    hasHeadache,
+    hasChills,
+    hasPain,
+    hasSmell,
+    hasThroat, 
+    note 
+  }
+) => {
+    try{
       let userId = auth().currentUser.uid;
 
       let newMemo = {
@@ -13,20 +27,24 @@ export const createMemo = async ({ date, location, hasCough, hasFever, hasFatigu
         fever: hasFever,
         fatigue: hasFatigue,
         breathing: hasBreathing,
+        headache: hasHeadache,
+        chills: hasChills,
+        pain: hasPain,
+        smell: hasSmell,
+        throat: hasThroat,
         note: note
       };
 
-    const ref = firestore().collection('memos');
+      const ref = firestore().collection('memos');
     
-    ref.add(newMemo);
+      ref.add(newMemo);
 
-    return {};
-  }catch(error){
-    return {
-      error: error.code
-    };
-  }  
-  
+      return {};
+    }catch(error){
+      return {
+        error: error.code
+      };
+    }   
 };
 
 export const getAllMemos = () => {
