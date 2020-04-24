@@ -2,10 +2,9 @@
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo } from 'react'
 import {FlatList} from 'react-native';
-import { Appbar, TextInput, Button, List } from 'react-native-paper';
+import { Appbar, TextInput, Button, List, DefaultTheme } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
-import { MemoView } from './MemoView'
 
 /* this is the entry point for the file */
 export const Memos = ({ navigation }) => {
@@ -70,8 +69,10 @@ export const Memos = ({ navigation }) => {
   return (    
     <>
       {/* Similar to NavBar but without navigation */}
-      <Appbar> 
-        <Appbar.Content title={'Memos'} />
+      <Appbar theme={theme}> 
+        <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
+        <Appbar.Content title={'Daily Memos'} />
+        <Appbar.Action icon="magnify" onPress={() => console.log('Pressed search')} />
       </Appbar>
 
       {/* render each DB entry */}
@@ -82,13 +83,29 @@ export const Memos = ({ navigation }) => {
         renderItem={({ item }) => <RenderEachMemo {...item} />}
       />
 
+      <Button 
+        mode="contained"
+        dark={true}
+        color="#2EB6B1"
+        style={{marginBottom:20, marginTop:20, marginLeft:60, marginRight:60}}
+        onPress={() => console.log('Pressed')}>
+          Create A New Memo
+      </Button>
       {/* Text bar for user to enter info */}
-      <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} />
-
+      {/* <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} /> */}
       {/* Button that triggers new entry to DB */}
-      <Button onPress={() => addMemo()}>New Memo</Button>
+      {/* <Button onPress={() => addMemo()}>New Memo</Button> */}
     </>
   );
+};
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#336699'
+  },
 };
 
 export default memo(Memos);
