@@ -47,10 +47,17 @@ export const Memos = ({ navigation }) => {
 
   /* this renders each DB entry in 'memo_test' */
   function RenderEachMemo({ id, userID, content }) {
+    var temp = 98.7;
+    var numOfLocations = 1;
+    var numOfSymp = 0;
+    var space = "        ";
     if(auth().currentUser.uid == userID){
       return (
         <List.Item
           title={content}
+          description={temp + "°F" + space 
+           + numOfLocations + " Location(s)" + space
+           + numOfSymp + " Symptom(s)"}
           onPress={() => navigation.navigate('memo', { docID: id })}
         />
       );
