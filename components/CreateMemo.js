@@ -17,6 +17,16 @@ export const CreateMemo = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const setInitialState = () => {
+    setDate({ value: '2020-04-23' })
+    setLocation({ value: '' });
+    setNote({ value: '' });
+    setCough({ checked: false });
+    setFever({ checked: false });
+    setFatigue({ checked: false });
+    setBreathing({ checked: false });
+  };
+
   const onSubmitPressed = async () => {
 
     if(loading) return;
@@ -42,8 +52,7 @@ export const CreateMemo = ({ navigation }) => {
       setError(response.error);
       setLoading(false);
     } else {
-      setLocation({ value: '' });
-      setNote({ value: '' });
+      setInitialState();
       navigation.navigate('memos'); 
     }
 
