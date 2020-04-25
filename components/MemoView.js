@@ -1,20 +1,26 @@
 /* @flow */
 
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { useState, useEffect, memo } from 'react'
+import { Appbar, TextInput, Button, List, Text } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore'
 
-export default class MemoView extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Single Memo</Text>
-      </View>
-    );
-  }
+export const MemoView = ({ route, navigation }) => {
+  /* catch docID */
+  const { docID } = route.params;
+
+  /* get data from doc */
+  
+  return (    
+    <>
+      {/* Similar to NavBar but without navigation */}
+      <Appbar> 
+        <Appbar.Content title={'Memo'} />
+      </Appbar>
+      <Text>DocID = "{docID}"</Text>
+      {/* <Text>UserID = "{newData}"</Text> */}
+      {/* <Text>Content = "{data.content}"</Text> */}
+    </>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+export default memo(MemoView);
