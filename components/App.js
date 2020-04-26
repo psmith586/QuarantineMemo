@@ -22,8 +22,6 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
       backdrop: '#FAFBFB',
     },
     fonts: {
-      regular: 'Helvetica Neue',
-      medium: 'Helvetica Neue Light',
     },
   }
 

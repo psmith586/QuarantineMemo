@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
@@ -8,6 +8,7 @@ import { createMemo } from './utils/db-api'
 export const CreateMemo = ({ navigation }) => {
 
   const [date, setDate] = useState({ value: '2020-04-23'});
+  const [temp, setTemp] = useState({ value: '' });
   const [location, setLocation] = useState({ value: '' });
   const [cough, setCough] = useState({ checked: false });
   const [fever, setFever] = useState({ checked: false });
@@ -23,6 +24,7 @@ export const CreateMemo = ({ navigation }) => {
   const [error, setError] = useState('');
 
   const setInitialState = () => {
+    setTemp({value: ''})
     setDate({ value: '2020-04-23' })
     setLocation({ value: '' });
     setNote({ value: '' });
@@ -48,8 +50,9 @@ export const CreateMemo = ({ navigation }) => {
 
     setLoading(true);
 
-    const response = await createMemo({ 
-      date: date.value, 
+    const response = await createMemo({
+      date: date.value,
+      temp: temp.value,
       location: location.value, 
       hasCough: hasCough,
       hasFever: hasFever,
@@ -92,6 +95,14 @@ export const CreateMemo = ({ navigation }) => {
         onDateChange={(date) => setDate({value: date})}
       />
 
+      {/*temperature*/}
+        <TextInput
+          label='Temperature'
+          returnKeyType='next'
+          value={temp.value}
+          onChangeText={text => setTemp({ value: text })}
+        />
+
       {/*location*/}
       <TextInput 
         label='Location'
@@ -100,59 +111,78 @@ export const CreateMemo = ({ navigation }) => {
         onChangeText={text => setLocation({ value: text })}
       />
       {/*checkbox forms*/}
-      <Checkbox 
+
+      <View style = {style.listItem}>
+      <Checkbox
         status={cough.checked ? 'checked' : 'unchecked'}
         onPress={() => setCough({ checked: !cough.checked })}
       />
-      <Text>Cough</Text>
-      
+      <Text style = {style.listText}>Cough</Text>
+      </View>
+
+      <View style = {style.listItem}>
       <Checkbox 
         status={fever.checked ? 'checked' : 'unchecked'}
         onPress={() => setFever({ checked: !fever.checked })}
       />
-      <Text>Fever</Text>
-      
+      <Text style = {style.listText}>Fever</Text>
+      </View>
+
+      <View style = {style.listItem}>
       <Checkbox 
         status={fatigue.checked ? 'checked' : 'unchecked'}
         onPress={() => setFatigue({ checked: !fatigue.checked })}
       />
-      <Text>Fatigue</Text>
-      
+      <Text style = {style.listText}>Fatigue</Text>
+      </View>
+
+      <View style = {style.listItem}>
       <Checkbox 
         status={breathing.checked ? 'checked' : 'unchecked'}
         onPress={() => setBreathing({ checked: !breathing.checked })}
       />
-      <Text>Difficulty Breathing</Text>
+      <Text style = {style.listText}>Difficulty Breathing</Text>
+      </View>
 
+      <View style = {style.listItem}>
       <Checkbox 
         status={headache.checked ? 'checked' : 'unchecked'}
         onPress={() => setHeadache({ checked: !headache.checked })}
       />
-      <Text>Headache</Text>
+      <Text style = {style.listText}>Headache</Text>
+      </View>
 
+      <View style = {style.listItem}>
       <Checkbox 
         status={throat.checked ? 'checked' : 'unchecked'}
         onPress={() => setThroat({ checked: !throat.checked })}
       />
-      <Text>Sore Throat</Text>
+      <Text style = {style.listText}>Sore Throat</Text>
+      </View>
 
+      <View style = {style.listItem}>
       <Checkbox 
         status={smell.checked ? 'checked' : 'unchecked'}
         onPress={() => setSmell({ checked: !smell.checked })}
       />
-      <Text>Loss of Taste/Smell</Text>
+      <Text style = {style.listText}>Loss of Taste/Smell</Text>
+      </View>
 
+      <View style = {style.listItem}>
       <Checkbox 
         status={chills.checked ? 'checked' : 'unchecked'}
         onPress={() => setChills({ checked: !chills.checked })}
       />
-      <Text>Chills/Shaking</Text>
+      <Text style = {style.listText}>Chills/Shaking</Text>
+      </View>
 
+      <View style = {style.listItem}>
       <Checkbox 
         status={pain.checked ? 'checked' : 'unchecked'}
         onPress={() => setPain({ checked: !pain.checked })}
       />
-      <Text>Muscle Pain</Text>
+      <Text style = {style.listText}>Muscle Pain</Text>
+      </View>
 
       {/*notes input*/}
       <TextInput
@@ -174,5 +204,14 @@ export const CreateMemo = ({ navigation }) => {
   );
 
 };
+
+const style = StyleSheet.create({
+  listItem: {
+    flexDirection: 'row'
+  },
+  listText: {
+    padding: 10
+  }
+});
 
 export default memo(CreateMemo);
