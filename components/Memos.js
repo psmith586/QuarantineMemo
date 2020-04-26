@@ -12,19 +12,33 @@ export const Memos = ({ navigation }) => {
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
-  const ref = firestore().collection('memo_user');
+  const ref = firestore().collection('memos');
   /* "Every time a document is created, deleted or modified on the collection, 
      this method will trigger and update component state in realtime" */
   useEffect(() => {
     return ref.onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { userID, content } = doc.data();
-        list.push({
-          id: doc.id,
-          content,
-          userID
-        });
+        const { breathing, chills, cough, date, fatigue, fever, headache, location,
+                note, pain, smell, throat, uid } = doc.data();
+        if(auth().currentUser.uid == uid) {
+          list.push({
+            id: doc.id,
+            breathing, 
+            chills, 
+            cough, 
+            date, 
+            fatigue, 
+            fever, 
+            headache, 
+            location,
+            note, 
+            pain, 
+            smell, 
+            throat, 
+            uid
+          });
+        }
       });
 
       setMemos(list);
@@ -36,24 +50,35 @@ export const Memos = ({ navigation }) => {
   }, []);
 
   /* this renders each DB entry in 'memo_test' */
-  function RenderEachMemo({ id, userID, content }) {
+  function RenderEachMemo({ id, breathing, chills, cough, date, fatigue, fever, headache, location, note, pain, smell, throat, uid }) {
     var temp = 98.7;
     var numOfLocations = 1;
     var numOfSymp = 0;
     var space = "        ";
-    if(auth().currentUser.uid == userID){
-      return (
-        <List.Item
-          title={content}
-          description={temp + "°F" + space 
-           + numOfLocations + " Location(s)" + space
-           + numOfSymp + " Symptom(s)"}
-          onPress={() => navigation.navigate('memo', { docID: id })}
-        />
-      );
-    } else {
-      return null 
-    }
+    return (
+      <List.Item
+        title={date}
+        description={temp + "°F" + space 
+          + numOfLocations + " Location(s)" + space
+          + numOfSymp + " Symptom(s)"}
+        onPress={() => navigation.navigate('memo', { 
+          id,
+          breathing,
+          chills,
+          cough,
+          date,
+          fatigue, 
+          fever, 
+          headache, 
+          location, 
+          note, 
+          pain, 
+          smell, 
+          throat, 
+          uid
+        })}
+      />
+    )
   }
   
   /* Render to Phone */
