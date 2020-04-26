@@ -4,6 +4,7 @@ import { emailValidator, passwordValidator } from './utils/validator'
 import { loginUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
 import { Appbar, TextInput, Button, List } from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState({ value:'', error: '' });
