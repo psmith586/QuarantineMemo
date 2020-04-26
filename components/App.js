@@ -12,7 +12,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
     colors: {
       primary: '#336699',
       accent: '#0D3B66',
-      background: '#FAFBFB',
+      background: '#FFFFFF',
       surface: '#FAFBFB',
       text: '#0D3B66',
       disabled: '#2EB6B1',
