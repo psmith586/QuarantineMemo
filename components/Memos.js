@@ -1,8 +1,8 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo } from 'react'
-import {FlatList, View} from 'react-native';
-import { Appbar, TextInput, Button, List } from 'react-native-paper';
+import { FlatList, View } from 'react-native';
+import { Appbar, TextInput, Button, List, Button, List } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 import { logoutUser } from './utils/api'
@@ -23,7 +23,7 @@ export const Memos = ({ navigation }) => {
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
-  const ref = firestore().collection('memo_test');
+  const ref = firestore().collection('memos');
 
 
   
