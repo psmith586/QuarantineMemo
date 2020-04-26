@@ -1,44 +1,44 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo } from 'react'
-import { FlatList, View } from 'react-native';
-import { Appbar, TextInput, Button, List, Button, List } from 'react-native-paper';
+import {FlatList} from 'react-native';
+import { Appbar, TextInput, Button, List, DefaultTheme } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
-import auth from '@react-native-firebase/auth'
-import { logoutUser } from './utils/api'
-
-import { Drawer } from './App'
-
-/* this renders each DB entry in 'memo_test' */
-function Memo({ content }) {
-  return (
-    <List.Item
-      title={content}
-    />
-  );
-}
+import auth from '@react-native-firebase/auth';
 
 /* this is the entry point for the file */
 export const Memos = ({ navigation }) => {
+  const [ aMemo, setAMemo ] = useState(''); // for adding to DB
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
   const ref = firestore().collection('memos');
-
-
-  
   /* "Every time a document is created, deleted or modified on the collection, 
      this method will trigger and update component state in realtime" */
   useEffect(() => {
-    let mounted = true; // fixed warning https://www.debuggr.io/react-update-unmounted-component/
     return ref.onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { content } = doc.data();
-        list.push({
-          id: doc.id,
-          content
-        });
+        const { breathing, chills, cough, date, fatigue, fever, headache, location,
+                note, pain, smell, throat, uid } = doc.data();
+        if(auth().currentUser.uid == uid) {
+          list.push({
+            id: doc.id,
+            breathing, 
+            chills, 
+            cough, 
+            date, 
+            fatigue, 
+            fever, 
+            headache, 
+            location,
+            note, 
+            pain, 
+            smell, 
+            throat, 
+            uid
+          });
+        }
       });
 
       setMemos(list);
@@ -46,38 +46,81 @@ export const Memos = ({ navigation }) => {
       if (loading) {
         setLoading(false);
       }
-      mounted = false; // fixed warning
     });
   }, []);
+
+  /* this renders each DB entry in 'memo_test' */
+  function RenderEachMemo({ id, breathing, chills, cough, date, fatigue, fever, headache, location, note, pain, smell, throat, uid }) {
+    var temp = 98.7;
+    var numOfLocations = 1;
+    var numOfSymp = 0;
+    var space = "        ";
+    return (
+      <List.Item
+        title={date}
+        description={temp + "°F" + space 
+          + numOfLocations + " Location(s)" + space
+          + numOfSymp + " Symptom(s)"}
+        onPress={() => navigation.navigate('memo', { 
+          id,
+          breathing,
+          chills,
+          cough,
+          date,
+          fatigue, 
+          fever, 
+          headache, 
+          location, 
+          note, 
+          pain, 
+          smell, 
+          throat, 
+          uid
+        })}
+      />
+    )
+  }
   
   /* Render to Phone */
   return (    
     <>
       {/* Similar to NavBar but without navigation */}
-      <Appbar> 
-        <Appbar.Content title={'Memos'} subtitle={auth().currentUser.displayName}/>
+      <Appbar theme={theme}> 
+        <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
+        <Appbar.Content title={'Daily Memos'} />
+        <Appbar.Action icon="magnify" onPress={() => console.log('Pressed search')} />
       </Appbar>
 
       {/* render each DB entry */}
       <FlatList 
         style={{flex: 1}}
         data={memos}
-        renderItem={({ item }) => <Memo {...item} />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <RenderEachMemo {...item} />}
       />
 
+      <Button 
+        mode="contained"
+        dark={true}
+        color="#2EB6B1"
+        style={{marginBottom:20, marginTop:20, marginLeft:60, marginRight:60}}
+        onPress={() => navigation.navigate('createMemo')}>Create Memo</Button>
+      
+      {/* Text bar for user to enter info */}
+      {/* <TextInput label={'New Memo'} value={aMemo} onChangeText={setAMemo} /> */}
       {/* Button that triggers new entry to DB */}
-      <Button onPress={() => navigation.navigate('createMemo')}>Create Memo</Button>
-
-      {/*Logout button*/}
-      <Button
-        title='Logout'
-        mode='contained'
-        onPress={logoutUser}
-      >
-        Logout
-      </Button>
+      {/* <Button onPress={() => addMemo()}>New Memo</Button> */}
     </>
   );
+};
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#336699'
+  },
 };
 
 export default memo(Memos);
