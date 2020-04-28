@@ -16,7 +16,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
       surface: '#FAFBFB',
       text: '#0D3B66',
       disabled: '#2EB6B1',
-      error: '#2EB6B1',
+      error: '#8190A5',
       disabled: '#BEC6C6',
       placeholder: '#336699',
       backdrop: '#FAFBFB',
