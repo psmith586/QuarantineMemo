@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
@@ -77,7 +77,7 @@ export const CreateMemo = ({ navigation }) => {
   }; 
 
   return(
-    <View>
+    <ScrollView>
       <Appbar>
         <Appbar.Content title={'Create Memo'}/>
       </Appbar>
@@ -290,7 +290,7 @@ export const CreateMemo = ({ navigation }) => {
         />
       </View>
 
-      <Button onPress={() => onSubmitPressed()}>Submit</Button>
+      <Button onPress={() => onSubmitPressed()} style = {style.submit}>Submit</Button>
 
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('memos')}>
@@ -298,7 +298,7 @@ export const CreateMemo = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-    </View>
+    </ScrollView>
   );
 
 };
@@ -319,7 +319,7 @@ const style = StyleSheet.create({
     color: '#0D3B66'
   },
   fieldViewInput: {
-    paddingLeft: 70
+    paddingLeft: 65
   },
   fieldViewInputText: {
     width: 300,
@@ -337,6 +337,9 @@ const style = StyleSheet.create({
   symptomViewText: {
     padding: 10,
     color: '#0D3B66'
+  },
+  submit: {
+    paddingTop: 30
   }
 });
 
