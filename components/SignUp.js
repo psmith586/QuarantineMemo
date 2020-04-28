@@ -1,6 +1,6 @@
 /* @flow */
 import React, { memo, useState } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { emailValidator, nameValidator, passwordValidator } from './utils/validator'
 import { signUpUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
@@ -47,17 +47,31 @@ export const SignUp = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Appbar> 
-        <Appbar.Content title={'Sign Up'} />
+    <View style = {style.page}>
+
+      <Appbar>
+        <Appbar.Content title={'Sign Up For Quarantine Memo'} />
       </Appbar>
+
+      <Button
+        style = {style.logoView}
+        icon={({ size, color }) => (
+          <Image source={require('./resources/logo.png')} style={style.logo}/>
+        )}>
+      </Button>
+
+      <Text style = {style.appName}>Quarantine Memo</Text>
+
+      <View style = {style.form}>
+
       <TextInput
         label='Username'
         returnKeyType='next'
         value={name.value}
         onChangeText={text => setName({ value: text, error: '' })}
         error={!!name.error}
-        errorText={name.error}  
+        errorText={name.error}
+        style = {style.formField}
       />
 
       <TextInput 
@@ -71,6 +85,7 @@ export const SignUp = ({ navigation }) => {
         autoCompleteType='email'
         textContentType='emailAddress'
         keyboardType='email-address'
+        style = {style.formField}
       />
 
       <TextInput 
@@ -82,8 +97,10 @@ export const SignUp = ({ navigation }) => {
         errorText={password.error}
         secureTextEntry
         autoCapitalize='none'
+        style = {style.formField}
       />
 
+      <View style = {style.formSubmit}>
       <Button
         title='SignUp'
         loading={loading}
@@ -92,15 +109,68 @@ export const SignUp = ({ navigation }) => {
       >
         Sign Up
       </Button>
+      </View>
 
-      <View>
-        <Text>Already have an account?</Text>
+      <View style = {style.signUp}>
+        <Text style = {style.text}>Already have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text>Login</Text>
+          <Text style = {style.text}>Login</Text>
         </TouchableOpacity>
       </View>
+
+      </View>
+
     </View>  
   );
 };
+
+const style = StyleSheet.create({
+    page: {
+        backgroundColor: "#A7DBE7",
+        alignItems: 'center',
+        height: 1000
+    },
+    logo: {
+        width: 110,
+        height: 110
+    },
+    logoView: {
+        width: 300,
+        paddingTop: 30,
+        paddingRight: 75
+    },
+    appName: {
+        color: '#FFFFFF',
+        fontSize: 36,
+        paddingTop: 10,
+        paddingBottom: 30
+    },
+    form: {
+        paddingTop: 30,
+        backgroundColor: "#E0E6ED",
+        width: 350,
+        height: 360,
+        alignItems: 'center',
+        paddingBottom: 50,
+        borderRadius: 5
+    },
+    formField: {
+        width: 300,
+        borderRadius: 4
+    },
+    formSubmit: {
+        paddingTop: 15,
+        width: 300
+    },
+    signUp: {
+       width: 300,
+       color: '#8492A6',
+       paddingTop: 15,
+    },
+    text: {
+        color: '#8492A6',
+        fontSize: 18
+    }
+});
 
 export default memo(SignUp);

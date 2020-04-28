@@ -2,7 +2,8 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 
 export const createMemo = async (
-  { date, 
+  { date,
+    temp,
     location, 
     hasCough, 
     hasFever, 
@@ -22,6 +23,7 @@ export const createMemo = async (
       let newMemo = {
         uid: userId,
         date: date,
+        temp: temp,
         location: location,
         cough: hasCough,
         fever: hasFever,

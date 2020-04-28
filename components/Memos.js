@@ -1,8 +1,8 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, useEffect, memo, View } from 'react'
 import {FlatList} from 'react-native';
-import { Appbar, TextInput, Button, List, DefaultTheme } from 'react-native-paper';
+import { Appbar, Text, Button, List, DefaultTheme } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
 
@@ -19,24 +19,10 @@ export const Memos = ({ navigation }) => {
     return ref.onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { breathing, chills, cough, date, fatigue, fever, headache, location,
-                note, pain, smell, throat, uid } = doc.data();
-        if(auth().currentUser.uid == uid) {
+        if(auth().currentUser.uid == doc.data().uid) {
           list.push({
             id: doc.id,
-            breathing, 
-            chills, 
-            cough, 
-            date, 
-            fatigue, 
-            fever, 
-            headache, 
-            location,
-            note, 
-            pain, 
-            smell, 
-            throat, 
-            uid
+            data: doc.data()
           });
         }
       });
@@ -49,33 +35,38 @@ export const Memos = ({ navigation }) => {
     });
   }, []);
 
+  function getNumOfLocations(data) {
+    return (data.location.split(", ").length);
+  }
+
+  function getNumOfSymptoms(data) {
+    var sum = 0;
+    if( data.breathing === "yes") sum++;
+    if( data.chills    === "yes") sum++;
+    if( data.cough     === "yes") sum++;
+    if( data.fatigue   === "yes") sum++;
+    if( data.fever     === "yes") sum++;
+    if( data.headache  === "yes") sum++;
+    if( data.pain      === "yes") sum++;
+    if( data.smell     === "yes") sum++;
+    if( data.throat    === "yes") sum++;
+    return sum;
+  }
+
   /* this renders each DB entry in 'memo_test' */
-  function RenderEachMemo({ id, breathing, chills, cough, date, fatigue, fever, headache, location, note, pain, smell, throat, uid }) {
-    var temp = 98.7;
-    var numOfLocations = 1;
-    var numOfSymp = 0;
-    var space = "        ";
+  function RenderEachMemo({ id, data }) {
     return (
       <List.Item
-        title={date}
-        description={temp + "°F" + space 
-          + numOfLocations + " Location(s)" + space
-          + numOfSymp + " Symptom(s)"}
+        title={data.date}
+        descriptionNumberOfLines={3}
+        description={
+          data.temp + "°F\n" + 
+          getNumOfLocations(data) + " Location(s)\n" +
+          getNumOfSymptoms(data) + " Symptom(s)"
+        }
         onPress={() => navigation.navigate('memo', { 
           id,
-          breathing,
-          chills,
-          cough,
-          date,
-          fatigue, 
-          fever, 
-          headache, 
-          location, 
-          note, 
-          pain, 
-          smell, 
-          throat, 
-          uid
+          data
         })}
       />
     )
