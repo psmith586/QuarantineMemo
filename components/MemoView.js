@@ -1,35 +1,11 @@
 /* @flow */
 
-import React, { useState, useEffect, memo } from 'react'
-import { Appbar, TextInput, Button, List, Text, DefaultTheme } from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore'
+import React, { memo } from 'react'
+import { Appbar, Button, List, DefaultTheme } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
-function getSymptoms(data) {
-  var result = "";
-  if( data.breathing === "yes") result += "";
-  if( data.chills    === "yes") sum++;
-  if( data.cough     === "yes") sum++;
-  if( data.fatigue   === "yes") sum++;
-  if( data.fever     === "yes") sum++;
-  if( data.headache  === "yes") sum++;
-  if( data.pain      === "yes") sum++;
-  if( data.smell     === "yes") sum++;
-  if( data.throat    === "yes") sum++;
-  return sum;
-}
-
 export const MemoView = ({ route, navigation }) => {
-  const { id, data } = route.params;
-
-  state = {
-    expanded: true
-  }
-
-  _handlePress = () =>
-    this.setState({
-      expanded: !this.state.expanded
-    });
+  const { id, data } = route.params; // we will need to pass id to "edit memo"
 
   return (    
     <>
@@ -46,7 +22,7 @@ export const MemoView = ({ route, navigation }) => {
           />
           <List.Item
             title="Temperature"
-            description={data.temp}
+            description={data.temp + "°F"} 
           />
           <List.Item
             title="Location(s)"
@@ -64,7 +40,7 @@ export const MemoView = ({ route, navigation }) => {
               <List.Item title="Headache?" description={data.headache}/>
               <List.Item title="Any Pains?" description={data.pain}/>
               <List.Item title="Loss of Taste or Smell?" description={data.smell}/>
-              <List.Item title="Sour Throat?" description={data.throat}/>
+              <List.Item title="Sore Throat?" description={data.throat}/>
           </List.Accordion>
           <List.Item
             title="Notes"
