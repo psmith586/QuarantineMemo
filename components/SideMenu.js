@@ -21,13 +21,13 @@ function SideMenu() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen name="InfoPage" component={InfoPage} />
-        <Drawer.Screen name="memos" component={Memos} />
-        <Drawer.Screen name="memo" component={MemoView} />
-        <Drawer.Screen name="login" component={Login} />
-        <Drawer.Screen name="sign up" component={SignUp} />
-        <Drawer.Screen name="logout" component={Logout} />
-        <Drawer.Screen name='createMemo' component={CreateMemo} />
+        <Drawer.Screen name="Information Page" component={InfoPage} />
+        <Drawer.Screen name="Daily Memos" component={Memos} />
+        <Drawer.Screen name='Create A Memo' component={CreateMemo} />
+        <Drawer.Screen name="View Memo" component={MemoView} />
+        <Drawer.Screen name="Log In" component={Login} />
+        <Drawer.Screen name="Log Out" component={Logout} />
+        <Drawer.Screen name="Sign Up" component={SignUp} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
