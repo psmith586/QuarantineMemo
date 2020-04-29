@@ -20,15 +20,16 @@ export const Logout = ({ navigation }) => {
 
   return(
     <View>
-      <Appbar> 
+      <Appbar>
+        <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
         <Appbar.Content title={'Logout'} />
       </Appbar>
       <View style = {{paddingTop:30, alignItems: 'center'}}>
       <Button
         style = {{width: 400, backgroundColor: "#2EB6B1"}}
-        title='Logout' 
-        loading={loading} 
-        mode='contained' 
+        title='Logout'
+        loading={loading}
+        mode='contained'
         onPress={onLogoutPressed}
       >
         Logout
@@ -40,4 +41,3 @@ export const Logout = ({ navigation }) => {
 };
 
 export default memo(Logout);
- 
