@@ -1,14 +1,14 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo, View } from 'react'
-import {FlatList} from 'react-native';
-import { Appbar, Text, Button, List, DefaultTheme } from 'react-native-paper';
+import { FlatList, Alert } from 'react-native';
+import { Appbar, Button, List, DefaultTheme } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging'
 
 /* this is the entry point for the file */
 export const Memos = ({ navigation }) => {
-  const [ aMemo, setAMemo ] = useState(''); // for adding to DB
   const [ loading, setLoading ] = useState(true); // for realtime update
   const [ memos, setMemos ] = useState([]); // for rendering
 
@@ -71,6 +71,36 @@ export const Memos = ({ navigation }) => {
       />
     )
   }
+
+  {/*mount token to db for notifications*/}
+  async function saveTokenToDatabase(token) {
+  // Assume user is already signed in
+  const userId = auth().currentUser.uid;
+
+  // Add the token to the users datastore
+  await firestore()
+    .collection('users')
+    .doc(userId)
+    .update({
+      tokens: firestore.FieldValue.arrayUnion(token),
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+
+  useEffect(() => {
+    // Get the device token
+    messaging()
+      .getToken()
+      .then(token => {
+        return saveTokenToDatabase(token);
+      });
+
+    // Listen to whether the token changes
+    return messaging().onTokenRefresh(token => {
+      saveTokenToDatabase(token);
+    });
+  }, []);
   
   /* Render to Phone */
   return (    

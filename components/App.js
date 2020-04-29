@@ -3,6 +3,9 @@ import React from 'react'
 import Navigator from './Navigator'
 import '@react-native-firebase/auth'
 import '@react-native-firebase/firestore'
+import messaging from '@react-native-firebase/messaging'
+import notifee from '@notifee/react-native'
+
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
  const theme = {
@@ -26,6 +29,14 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
   }
 
 export default function App() {
+
+  function onMessageReceived(message){
+    notifee.displayNotification(JSON.parse(message.data.notificaton));
+  }
+
+  messaging().onMessage(onMessageReceived);
+  messaging().setBackgroundMessageHandler(onMessageReceived);
+
   return(
     <PaperProvider theme={theme}>
       <Navigator />
