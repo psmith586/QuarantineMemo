@@ -24,7 +24,7 @@ function SideMenu() {
         <Drawer.Screen name="Information Page" component={InfoPage} />
         <Drawer.Screen name="Daily Memos" component={Memos} />
         <Drawer.Screen name='Create A Memo' component={CreateMemo} />
-        <Drawer.Screen name="View Memo" component={MemoView} />
+        <Drawer.Screen name="memo" component={MemoView} />
         <Drawer.Screen name="Log In" component={Login} />
         <Drawer.Screen name="Log Out" component={Logout} />
         <Drawer.Screen name="Sign Up" component={SignUp} />
