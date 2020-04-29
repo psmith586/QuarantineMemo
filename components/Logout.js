@@ -23,7 +23,9 @@ export const Logout = ({ navigation }) => {
       <Appbar> 
         <Appbar.Content title={'Logout'} />
       </Appbar>
-      <Button 
+      <View style = {{paddingTop:30, alignItems: 'center'}}>
+      <Button
+        style = {{width: 400, backgroundColor: "#2EB6B1"}}
         title='Logout' 
         loading={loading} 
         mode='contained' 
@@ -31,6 +33,7 @@ export const Logout = ({ navigation }) => {
       >
         Logout
       </Button>
+      </View>
     </View>
   );
 
