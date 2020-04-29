@@ -4,7 +4,6 @@ import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
 import { createMemo } from './utils/db-api'
-import { Provider as PaperProvider } from 'react-native-paper';
 
 export const CreateMemo = ({ navigation }) => {
 
@@ -283,7 +282,7 @@ const style = StyleSheet.create({
     fontSize: 16
   },
   submit: {
-    marginTop: 20
+    marginTop: 30,
   }
 });
 
