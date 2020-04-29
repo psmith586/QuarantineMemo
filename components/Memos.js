@@ -53,6 +53,12 @@ export const Memos = ({ navigation }) => {
     return sum;
   }
 
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function formatDate(date) {
+    var tokens = date.split("-");
+    return (months[parseInt(tokens[1]-1)] + " " + parseInt(tokens[2]) + ", " + tokens[0]);
+  }
+
   /* this renders each DB entry in 'memo_test' */
   function RenderEachMemo({ id, data }) {
     var temperature = (parseFloat(data.temp)).toFixed(2) + "°F";
@@ -60,7 +66,7 @@ export const Memos = ({ navigation }) => {
     var symptoms = (getNumOfSymptoms(data) + " Symptom(s)").padStart(25, ' ');
     return (
       <List.Item
-        title={data.date}
+        title={formatDate(data.date)}
         descriptionNumberOfLines={3}
         description={ temperature + locations + symptoms }
         onPress={() => navigation.navigate('memo', { 
