@@ -64,9 +64,10 @@ export const Memos = ({ navigation }) => {
     var temperature = (parseFloat(data.temp)).toFixed(2) + "°F";
     var locations = (getNumOfLocations(data) + " Location(s)").padStart(25, ' ');
     var symptoms = (getNumOfSymptoms(data) + " Symptom(s)").padStart(25, ' ');
+    data.date = formatDate(data.date);
     return (
       <List.Item
-        title={formatDate(data.date)}
+        title={data.date}
         descriptionNumberOfLines={3}
         description={ temperature + locations + symptoms }
         onPress={() => navigation.navigate('memo', { 
