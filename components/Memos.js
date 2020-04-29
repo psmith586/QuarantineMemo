@@ -1,7 +1,7 @@
 /* @flow */
 // https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
 import React, { useState, useEffect, memo, View } from 'react'
-import {FlatList} from 'react-native';
+import {FlatList, StyleSheet, Image} from 'react-native';
 import { Appbar, Text, Button, List, DefaultTheme } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
@@ -55,15 +55,14 @@ export const Memos = ({ navigation }) => {
 
   /* this renders each DB entry in 'memo_test' */
   function RenderEachMemo({ id, data }) {
+    var temperature = (parseFloat(data.temp)).toFixed(2) + "°F";
+    var locations = (getNumOfLocations(data) + " Location(s)").padStart(25, ' ');
+    var symptoms = (getNumOfSymptoms(data) + " Symptom(s)").padStart(25, ' ');
     return (
       <List.Item
         title={data.date}
         descriptionNumberOfLines={3}
-        description={
-          data.temp + "°F\n" + 
-          getNumOfLocations(data) + " Location(s)\n" +
-          getNumOfSymptoms(data) + " Symptom(s)"
-        }
+        description={ temperature + locations + symptoms }
         onPress={() => navigation.navigate('memo', { 
           id,
           data
@@ -76,18 +75,17 @@ export const Memos = ({ navigation }) => {
   return (    
     <>
       {/* Similar to NavBar but without navigation */}
-      <Appbar theme={theme}> 
+      <Appbar>
         <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
         <Appbar.Content title={'Daily Memos'} />
         <Appbar.Action icon="magnify" onPress={() => console.log('Pressed search')} />
       </Appbar>
 
       {/* render each DB entry */}
-      <FlatList 
-        style={{flex: 1}}
+      <FlatList
         data={memos}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <RenderEachMemo {...item} />}
+        renderItem={({ item }) => <RenderEachMemo {...item }  />}
       />
 
       <Button 
@@ -103,15 +101,6 @@ export const Memos = ({ navigation }) => {
       {/* <Button onPress={() => addMemo()}>New Memo</Button> */}
     </>
   );
-};
-
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#336699'
-  },
 };
 
 export default memo(Memos);
