@@ -64,7 +64,9 @@ export const Memos = ({ navigation }) => {
     var temperature = (parseFloat(data.temp)).toFixed(2) + "°F";
     var locations = (getNumOfLocations(data) + " Location(s)").padStart(25, ' ');
     var symptoms = (getNumOfSymptoms(data) + " Symptom(s)").padStart(25, ' ');
-    data.date = formatDate(data.date);
+    if(data.date.includes("-")) {
+      data.date = formatDate(data.date);
+    }
     return (
       <List.Item
         title={data.date}
