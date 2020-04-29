@@ -31,11 +31,11 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 export default function App() {
 
   function onMessageReceived(message){
-    notifee.displayNotification(JSON.parse(message.data.notificaton));
+    notifee.displayNotification(message);
   }
 
-  messaging().onMessage(onMessageReceived);
-  messaging().setBackgroundMessageHandler(onMessageReceived);
+  messaging().onMessage(async remoteMessage => {onMessageReceived(remoteMessage)} );
+  messaging().setBackgroundMessageHandler(async remoteMessage => {onMessageReceived(remoteMessage)} );
 
   return(
     <PaperProvider theme={theme}>
