@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native'
+import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native'
 import { emailValidator, passwordValidator } from './utils/validator'
 import { loginUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
@@ -40,18 +40,15 @@ export const Login = ({ navigation }) => {
   };
 
   return(
-    <View style = {style.page}>
+    <ScrollView>
+
+      <View style = {style.page}>
 
       <Appbar>
         <Appbar.Content title={'Login to Quarantine Memo'} />
       </Appbar>
 
-      <Button
-        style = {style.logoView}
-        icon={({ size, color }) => (
-          <Image source={require('./resources/logo.png')} style={style.logo}/>
-        )}>
-      </Button>
+      <Image source={require('./resources/logo.png')} style={style.logo}/>
       <Text style = {style.appName}>Quarantine Memo</Text>
 
       <View style = {style.form}>
@@ -96,13 +93,13 @@ export const Login = ({ navigation }) => {
       <View style = {style.signUp}>
         <Text style = {style.text}>Don't Have an Account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style = {style.text}>Sign Up</Text>
+          <Text style = {style.linkText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
 
     </View>
-
     </View>
+    </ScrollView>
   );
 
 };
@@ -111,11 +108,12 @@ const style = StyleSheet.create({
     page: {
         backgroundColor: "#A7DBE7",
         alignItems: 'center',
-        height: 1000
+        height: 700
     },
     logo: {
         width: 110,
-        height: 110
+        height: 110,
+        marginTop: 30
     },
     logoView: {
         width: 300,
@@ -153,6 +151,11 @@ const style = StyleSheet.create({
     text: {
         color: '#8492A6',
         fontSize: 18
+    },
+    linkText: {
+        fontSize: 18,
+        color: '#336699',
+        textDecorationLine: 'underline'
     }
 });
 

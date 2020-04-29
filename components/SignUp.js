@@ -1,6 +1,6 @@
 /* @flow */
 import React, { memo, useState } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, Linking } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, Linking, ScrollView } from 'react-native'
 import { emailValidator, nameValidator, passwordValidator } from './utils/validator'
 import { signUpUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
@@ -47,18 +47,14 @@ export const SignUp = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <View style = {style.page}>
 
       <Appbar>
         <Appbar.Content title={'Sign Up For Quarantine Memo'} />
       </Appbar>
 
-      <Button
-        style = {style.logoView}
-        icon={({ size, color }) => (
-          <Image source={require('./resources/logo.png')} style={style.logo}/>
-        )}>
-      </Button>
+      <Image source={require('./resources/logo.png')} style={style.logo}/>
 
       <Text style = {style.appName}>Quarantine Memo</Text>
 
@@ -129,7 +125,8 @@ export const SignUp = ({ navigation }) => {
 
       </View>
 
-    </View>  
+    </View>
+    </ScrollView>
   );
 };
 
@@ -137,11 +134,12 @@ const style = StyleSheet.create({
     page: {
         backgroundColor: "#A7DBE7",
         alignItems: 'center',
-        height: 1000
+        height: 800
     },
     logo: {
         width: 110,
-        height: 110
+        height: 110,
+        marginTop: 30
     },
     logoView: {
         width: 300,
