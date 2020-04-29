@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import Loading from './Loading';
 import SideMenu from './SideMenu';
 import CreateMemo from './CreateMemo';
+import InfoPage from './InfoPage';
 
 const Navigator = createSwitchNavigator(
   {
@@ -16,7 +17,8 @@ const Navigator = createSwitchNavigator(
     MemoView,
     SideMenu,
     Loading,
-    CreateMemo
+    CreateMemo,
+    InfoPage
   },
   {
     initialRouteName: 'Loading',

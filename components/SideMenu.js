@@ -9,6 +9,7 @@ import { Login } from './Login'
 import { SignUp } from './SignUp'
 import { Logout } from './Logout'
 import { CreateMemo } from './CreateMemo'
+import { InfoPage } from './InfoPage'
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,6 +21,7 @@ function SideMenu() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
+        <Drawer.Screen name="InfoPage" component={InfoPage} />
         <Drawer.Screen name="memos" component={Memos} />
         <Drawer.Screen name="memo" component={MemoView} />
         <Drawer.Screen name="login" component={Login} />
