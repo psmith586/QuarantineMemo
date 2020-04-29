@@ -4,6 +4,7 @@ import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
 import { createMemo } from './utils/db-api'
+import { Provider as PaperProvider } from 'react-native-paper';
 
 export const CreateMemo = ({ navigation }) => {
 
@@ -79,16 +80,13 @@ export const CreateMemo = ({ navigation }) => {
   return(
     <ScrollView>
       <Appbar>
+        <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
         <Appbar.Content title={'Create Memo'}/>
       </Appbar>
 
       {/*date*/}
       <View style={style.fieldView}>
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/date.png')} style={style.fieldViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/date.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Date</Text>
       </View>
 
@@ -108,16 +106,12 @@ export const CreateMemo = ({ navigation }) => {
 
       {/*temperature*/}
       <View style={style.fieldView}>
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/temp.png')} style={style.fieldViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/temp.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Temperature</Text>
       </View>
       <View style = {style.fieldViewInput}>
         <TextInput
-          label='Type your temperature here'
+          placeholder = 'Type your temperature here'
           returnKeyType='next'
           value={temp.value}
           onChangeText={text => setTemp({ value: text })}
@@ -127,16 +121,12 @@ export const CreateMemo = ({ navigation }) => {
 
       {/*location*/}
       <View style={style.fieldView}>
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/location.png')} style={style.fieldViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/location.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Location(s)</Text>
       </View>
       <View style = {style.fieldViewInput}>
         <TextInput
-        label='Type your location(s) here'
+        placeholder='Type your location(s) here'
         returnKeyType='next'
         value={location.value}
         onChangeText={text => setLocation({ value: text })}
@@ -145,11 +135,7 @@ export const CreateMemo = ({ navigation }) => {
       </View>
 
       <View style={style.fieldView}>
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/symptoms.png')} style={style.fieldViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/symptoms.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Symptom(s)</Text>
       </View>
 
@@ -159,11 +145,7 @@ export const CreateMemo = ({ navigation }) => {
             status={cough.checked ? 'checked' : 'unchecked'}
             onPress={() => setCough({ checked: !cough.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/cough.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/cough.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Cough</Text>
       </View>
 
@@ -172,11 +154,7 @@ export const CreateMemo = ({ navigation }) => {
             status={fever.checked ? 'checked' : 'unchecked'}
             onPress={() => setFever({ checked: !fever.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/fever.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/fever.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Fever</Text>
       </View>
 
@@ -185,11 +163,7 @@ export const CreateMemo = ({ navigation }) => {
             status={fatigue.checked ? 'checked' : 'unchecked'}
             onPress={() => setFatigue({ checked: !fatigue.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/fatigue.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/fatigue.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Fatigue</Text>
       </View>
 
@@ -198,11 +172,7 @@ export const CreateMemo = ({ navigation }) => {
             status={breathing.checked ? 'checked' : 'unchecked'}
             onPress={() => setBreathing({ checked: !breathing.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/breathe.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/breathe.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Difficulty Breathing</Text>
       </View>
 
@@ -211,11 +181,7 @@ export const CreateMemo = ({ navigation }) => {
             status={headache.checked ? 'checked' : 'unchecked'}
             onPress={() => setHeadache({ checked: !headache.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/headache.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/headache.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Headache</Text>
       </View>
 
@@ -224,11 +190,7 @@ export const CreateMemo = ({ navigation }) => {
             status={throat.checked ? 'checked' : 'unchecked'}
             onPress={() => setThroat({ checked: !throat.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/throat.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/throat.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Sore Throat</Text>
       </View>
 
@@ -237,11 +199,7 @@ export const CreateMemo = ({ navigation }) => {
             status={smell.checked ? 'checked' : 'unchecked'}
             onPress={() => setSmell({ checked: !smell.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/smell.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/smell.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Loss of Taste/Smell</Text>
       </View>
 
@@ -250,11 +208,7 @@ export const CreateMemo = ({ navigation }) => {
             status={chills.checked ? 'checked' : 'unchecked'}
             onPress={() => setChills({ checked: !chills.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/chills.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/chills.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Chills/Shaking</Text>
       </View>
 
@@ -263,26 +217,18 @@ export const CreateMemo = ({ navigation }) => {
             status={pain.checked ? 'checked' : 'unchecked'}
             onPress={() => setPain({ checked: !pain.checked })}
           />
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/muscle.png')} style={style.symptomViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/muscle.png')} style={style.symptomViewIcon}/>
           <Text style = {style.symptomViewText}>Muscle Pain</Text>
       </View>
 
       {/*notes input*/}
       <View style={style.fieldView}>
-          <Button
-            icon={({ size, color }) => (
-              <Image source={require('./resources/notes.png')} style={style.fieldViewIcon}/>
-            )}>
-          </Button>
+          <Image source={require('./resources/notes.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Notes</Text>
       </View>
       <View style = {style.fieldViewInput}>
         <TextInput
-            label='Type additional notes here'
+            placeholder='Type additional notes here'
             returnKeyType='done'
             value={note.value}
             onChangeText={text => setNote({value: text})}
@@ -292,12 +238,6 @@ export const CreateMemo = ({ navigation }) => {
 
       <Button onPress={() => onSubmitPressed()} style = {style.submit}>Submit</Button>
 
-      <View>
-        <TouchableOpacity onPress={() => navigation.navigate('memos')}>
-          <Text>Home</Text>
-        </TouchableOpacity>
-      </View>
-
     </ScrollView>
   );
 
@@ -306,7 +246,8 @@ export const CreateMemo = ({ navigation }) => {
 const style = StyleSheet.create({
   fieldView: {
     flexDirection: 'row',
-    paddingTop: 20
+    paddingTop: 20,
+    paddingLeft: 20
   },
   fieldViewIcon: {
     width: 45,
@@ -316,7 +257,8 @@ const style = StyleSheet.create({
     fontSize: 20,
     paddingTop: 10,
     fontWeight: 'bold',
-    color: '#0D3B66'
+    color: '#0D3B66',
+    paddingLeft: 10
   },
   fieldViewInput: {
     paddingLeft: 65
@@ -328,18 +270,20 @@ const style = StyleSheet.create({
   symptomViewItem: {
     flexDirection: 'row',
     padding: 10,
-    paddingLeft: 70
+    paddingLeft: 70,
+    alignItems: 'center'
   },
   symptomViewIcon: {
-    width: 45,
-    height: 45
+    width: 60,
+    height: 60
   },
   symptomViewText: {
     padding: 10,
-    color: '#0D3B66'
+    color: '#0D3B66',
+    fontSize: 16
   },
   submit: {
-    paddingTop: 30
+    marginTop: 20
   }
 });
 
