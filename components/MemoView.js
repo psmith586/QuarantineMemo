@@ -61,7 +61,9 @@ export const MemoView = ({ route, navigation }) => {
 
           <List.Accordion
               title="Symptom(s)"
-              left={props => <List.Icon {...props} icon="folder" />}
+              left={props => <List.Icon icon={({ size, color }) => (
+               <Image source={require('./resources/symptoms.png')} style={style.icon}/>
+               )} />}
           >
 
             <View style={style.fieldRow}>
