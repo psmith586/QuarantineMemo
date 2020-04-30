@@ -52,3 +52,18 @@ export const createMemo = async (
 export const getAllMemos = () => {
     return firestore.getMemos();
 };
+
+export const saveTokenToDatabase = (token) => {
+  // Assume user is already signed in
+  const userId = auth().currentUser.uid;
+
+  // Add the token to the users datastore
+  firestore()
+    .collection('users')
+    .doc(userId)
+    .update({
+      tokens: firestore.FieldValue.arrayUnion(token),
+    }).catch(error => {
+      console.log(error);
+    });
+  };

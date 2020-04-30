@@ -3,8 +3,9 @@ import React from 'react'
 import Navigator from './Navigator'
 import '@react-native-firebase/auth'
 import '@react-native-firebase/firestore'
-import messaging from '@react-native-firebase/messaging'
-import notifee from '@notifee/react-native'
+import '@react-native-firebase/messaging'
+
+import NotificationsManager from './utils/NotificationsManager'
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
@@ -29,16 +30,9 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
   }
 
 export default function App() {
-
-  function onMessageReceived(message){
-    notifee.displayNotification(message);
-  }
-
-  messaging().onMessage(async remoteMessage => {onMessageReceived(remoteMessage)} );
-  messaging().setBackgroundMessageHandler(async remoteMessage => {onMessageReceived(remoteMessage)} );
-
   return(
     <PaperProvider theme={theme}>
+      <NotificationsManager />
       <Navigator />
     </PaperProvider>
   )

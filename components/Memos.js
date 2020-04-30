@@ -72,35 +72,6 @@ export const Memos = ({ navigation }) => {
     )
   }
 
-  {/*mount token to db for notifications*/}
-  async function saveTokenToDatabase(token) {
-  // Assume user is already signed in
-  const userId = auth().currentUser.uid;
-
-  // Add the token to the users datastore
-  await firestore()
-    .collection('users')
-    .doc(userId)
-    .update({
-      tokens: firestore.FieldValue.arrayUnion(token),
-    }).catch(error => {
-      console.log(error);
-    });
-  };
-
-  useEffect(() => {
-    // Get the device token
-    messaging()
-      .getToken()
-      .then(token => {
-        return saveTokenToDatabase(token);
-      });
-
-    // Listen to whether the token changes
-    return messaging().onTokenRefresh(token => {
-      saveTokenToDatabase(token);
-    });
-  }, []);
   
   /* Render to Phone */
   return (    
