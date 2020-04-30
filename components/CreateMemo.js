@@ -10,6 +10,7 @@ export const CreateMemo = ({ navigation }) => {
   const [date, setDate] = useState({ value: '2020-04-23'});
   const [temp, setTemp] = useState({ value: '' });
   const [location, setLocation] = useState({ value: '' });
+  const [geoLocation, setGeoLocation] = useState({geoLocation: null });
   const [cough, setCough] = useState({ checked: false });
   const [fever, setFever] = useState({ checked: false });
   const [fatigue, setFatigue] = useState({ checked: false });
@@ -27,6 +28,7 @@ export const CreateMemo = ({ navigation }) => {
     setTemp({value: ''})
     setDate({ value: '2020-04-23' })
     setLocation({ value: '' });
+    setGeoLocation({ geoLocation: null });
     setNote({ value: '' });
     setCough({ checked: false });
     setFever({ checked: false });
@@ -53,7 +55,8 @@ export const CreateMemo = ({ navigation }) => {
     const response = await createMemo({
       date: date.value,
       temp: temp.value,
-      location: location.value, 
+      location: location.value,
+      geoLocation: geoLocation.value,
       hasCough: hasCough,
       hasFever: hasFever,
       hasFatigue: hasFatigue,
@@ -75,6 +78,17 @@ export const CreateMemo = ({ navigation }) => {
     }
 
   }; 
+
+  const getLocaton = async () => {
+    await navigator.geolocation.getCurrentPosition(position => {
+      console.log(position);
+      const location = JSON.stringify(position);
+      setGeoLocation({geoLocation: location});
+    },
+    error => Alert.alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
 
   return(
     <ScrollView>
@@ -132,6 +146,13 @@ export const CreateMemo = ({ navigation }) => {
         style = {style.fieldViewInputText}
         />
       </View>
+
+      <View style = {style.fieldViewInput}>
+        <Button onPress={() => getLocaton()}>
+          Set Location
+        </Button>
+      </View>
+
 
       <View style={style.fieldView}>
           <Image source={require('./resources/symptoms.png')} style={style.fieldViewIcon}/>

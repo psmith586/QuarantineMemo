@@ -4,7 +4,8 @@ import firestore from '@react-native-firebase/firestore'
 export const createMemo = async (
   { date,
     temp,
-    location, 
+    location,
+    geoLocation,
     hasCough, 
     hasFever, 
     hasFatigue, 
@@ -25,6 +26,7 @@ export const createMemo = async (
         date: date,
         temp: temp,
         location: location,
+        geoLocation: geoLocation,
         cough: hasCough,
         fever: hasFever,
         fatigue: hasFatigue,
