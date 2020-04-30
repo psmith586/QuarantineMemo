@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native'
 import { emailValidator, passwordValidator } from './utils/validator'
 import { loginUser, signInWithGoogle } from './utils/api'
 import { Appbar, TextInput, Button } from 'react-native-paper';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin'
+import { GoogleSigninButton } from '@react-native-community/google-signin'
  
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState({ value:'', error: '' });

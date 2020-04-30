@@ -54,14 +54,23 @@ export const logoutUser = () => {
 //google sign in handlers
 //on sign in with google button, create user doc
 export const signInWithGoogle = async () => {
+
   try{
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+    await GoogleSignin.hasPlayServices();
+    
+    const data = await GoogleSignin.signIn();
+
+    const credential = auth.GoogleAuthProvider.credential(
+      data.idToken,
+      data.serverAuthCode,
+    );
+
+    await auth().signInWithCredential(credential);
 
       let newUserDoc = {
-        userID: userInfo.user.id,
-        username: userInfo.user.name,
-        email: userInfo.user.email,
+        userID: auth().currentUser.uid,
+        username: auth().currentUser.displayName,
+        email: auth().currentUser.email,
       }
 
       firestore().collection('users')
@@ -69,7 +78,7 @@ export const signInWithGoogle = async () => {
       .catch(error => {console.log(error)});
 
   }catch(error){
-    console.log('flag');
+    console.log('flag at google sign in');
   }
 
 }; 
