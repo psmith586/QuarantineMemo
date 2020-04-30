@@ -1,6 +1,6 @@
 /* @flow */
 import React, { memo, useState } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, Linking, ScrollView } from 'react-native'
 import { emailValidator, nameValidator, passwordValidator } from './utils/validator'
 import { signUpUser } from './utils/api'
 import { Header } from 'react-native/Libraries/NewAppScreen'
@@ -47,18 +47,14 @@ export const SignUp = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <View style = {style.page}>
 
       <Appbar>
         <Appbar.Content title={'Sign Up For Quarantine Memo'} />
       </Appbar>
 
-      <Button
-        style = {style.logoView}
-        icon={({ size, color }) => (
-          <Image source={require('./resources/logo.png')} style={style.logo}/>
-        )}>
-      </Button>
+      <Image source={require('./resources/logo.png')} style={style.logo}/>
 
       <Text style = {style.appName}>Quarantine Memo</Text>
 
@@ -100,6 +96,15 @@ export const SignUp = ({ navigation }) => {
         style = {style.formField}
       />
 
+      <View style = {style.privacy}>
+      <Text style = {style.text}>By signing up, you agree to our </Text>
+      <Text
+        onPress={ ()=> Linking.openURL('https://www.dropbox.com/s/9dnz88lpejr1ier/Privacy_Policy.pdf?dl=0') }
+        style = {style.linkText}>
+        Privacy Policy
+      </Text>
+      </View>
+
       <View style = {style.formSubmit}>
       <Button
         title='SignUp'
@@ -112,15 +117,16 @@ export const SignUp = ({ navigation }) => {
       </View>
 
       <View style = {style.signUp}>
-        <Text style = {style.text}>Already have an account?</Text>
+        <Text style = {style.text}>Already have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style = {style.text}>Login</Text>
+          <Text style = {style.linkText}>Login</Text>
         </TouchableOpacity>
       </View>
 
       </View>
 
-    </View>  
+    </View>
+    </ScrollView>
   );
 };
 
@@ -128,11 +134,12 @@ const style = StyleSheet.create({
     page: {
         backgroundColor: "#A7DBE7",
         alignItems: 'center',
-        height: 1000
+        height: 800
     },
     logo: {
         width: 110,
-        height: 110
+        height: 110,
+        marginTop: 30
     },
     logoView: {
         width: 300,
@@ -149,27 +156,39 @@ const style = StyleSheet.create({
         paddingTop: 30,
         backgroundColor: "#E0E6ED",
         width: 350,
-        height: 360,
+        height: 350,
         alignItems: 'center',
         paddingBottom: 50,
-        borderRadius: 5
+        borderRadius: 5,
+        paddingBottom: 10
     },
     formField: {
         width: 300,
         borderRadius: 4
     },
     formSubmit: {
-        paddingTop: 15,
+        paddingTop: 13,
         width: 300
     },
     signUp: {
        width: 300,
        color: '#8492A6',
-       paddingTop: 15,
+       flexDirection: 'row',
+       paddingTop: 6
     },
     text: {
         color: '#8492A6',
-        fontSize: 18
+        fontSize: 14
+    },
+    privacy: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10,
+        width: 300
+    },
+    linkText: {
+        color: '#336699',
+        textDecorationLine: 'underline'
     }
 });
 

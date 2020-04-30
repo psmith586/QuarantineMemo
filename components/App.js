@@ -4,6 +4,7 @@ import Navigator from './Navigator'
 import '@react-native-firebase/auth'
 import '@react-native-firebase/firestore'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { GoogleSignin } from '@react-native-community/google-signin'
 
  const theme = {
     ...DefaultTheme,
@@ -26,6 +27,13 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
   }
 
 export default function App() {
+
+  GoogleSignin.configure({
+    webClientId: '100280590667-fafncsi3vo1eci116q1p1hgt91spefil.apps.googleusercontent.com',
+    offlineAccess: true,
+    hostedDomain: '',
+  });
+
   return(
     <PaperProvider theme={theme}>
       <Navigator />
