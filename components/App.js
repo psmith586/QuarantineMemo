@@ -5,7 +5,7 @@ import '@react-native-firebase/auth'
 import '@react-native-firebase/firestore'
 import '@react-native-firebase/messaging'
 
-import NotificationsManager from './utils/NotificationsManager'
+//import NotificationsManager from './utils/NotificationsManager'
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
@@ -32,7 +32,6 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 export default function App() {
   return(
     <PaperProvider theme={theme}>
-      <NotificationsManager />
       <Navigator />
     </PaperProvider>
   )
