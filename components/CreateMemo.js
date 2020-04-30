@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
 import { createMemo } from './utils/db-api'
 
@@ -9,7 +8,7 @@ export const CreateMemo = ({ navigation }) => {
 
   const [date, setDate] = useState({ value: '2020-04-23'});
   const [temp, setTemp] = useState({ value: '' });
-  const [location, setLocation] = useState({ value: '' });
+  const [location, setLocation] = useState({});
   const [cough, setCough] = useState({ checked: false });
   const [fever, setFever] = useState({ checked: false });
   const [fatigue, setFatigue] = useState({ checked: false });
@@ -26,7 +25,7 @@ export const CreateMemo = ({ navigation }) => {
   const setInitialState = () => {
     setTemp({value: ''})
     setDate({ value: '2020-04-23' })
-    setLocation({ value: '' });
+    setLocation({});
     setNote({ value: '' });
     setCough({ checked: false });
     setFever({ checked: false });
@@ -74,7 +73,17 @@ export const CreateMemo = ({ navigation }) => {
       navigation.navigate('memos'); 
     }
 
-  }; 
+  };
+  
+  const getLocaton = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const location = JSON.stringify(position);
+      setLocation(location);    
+    },
+    error => Alert.alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
 
   return(
     <ScrollView>
@@ -124,13 +133,9 @@ export const CreateMemo = ({ navigation }) => {
           <Text style={style.fieldViewTitle}>Location(s)</Text>
       </View>
       <View style = {style.fieldViewInput}>
-        <TextInput
-        placeholder='Type your location(s) here'
-        returnKeyType='next'
-        value={location.value}
-        onChangeText={text => setLocation({ value: text })}
-        style = {style.fieldViewInputText}
-        />
+        <Button onPress={() => getLocaton()}>
+          Set Location
+        </Button>
       </View>
 
       <View style={style.fieldView}>
