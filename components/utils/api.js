@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 
 export const signUpUser = async ({ name, email, password }) => {
@@ -39,5 +40,36 @@ export const loginUser = async ({ email, password }) => {
 };
 
 export const logoutUser = () => {
-  auth().signOut();
+  let user = auth().currentUser;
+  let googleUser = GoogleSignin.getCurrentUser()
+  if(user){ 
+    auth().signOut();
+  } else if(googleUser){
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
+  }
+
 };
+
+//google sign in handlers
+//on sign in with google button, create user doc
+export const signInWithGoogle = async () => {
+  try{
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      let newUserDoc = {
+        userID: userInfo.user.id,
+        username: userInfo.user.name,
+        email: userInfo.user.email,
+      }
+
+      firestore().collection('users')
+      .add(newUserDoc)
+      .catch(error => {console.log(error)});
+
+  }catch(error){
+    console.log('flag');
+  }
+
+}; 

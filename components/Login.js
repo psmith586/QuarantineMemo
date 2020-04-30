@@ -1,11 +1,10 @@
 import React, { memo, useState } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native'
 import { emailValidator, passwordValidator } from './utils/validator'
-import { loginUser } from './utils/api'
-import { Header } from 'react-native/Libraries/NewAppScreen'
-import { Appbar, TextInput, Button, List } from 'react-native-paper';
-import { Provider as PaperProvider } from 'react-native-paper';
-
+import { loginUser, signInWithGoogle } from './utils/api'
+import { Appbar, TextInput, Button } from 'react-native-paper';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin'
+ 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState({ value:'', error: '' });
   const [password, setPassword] = useState({ value:'', error: '' });
@@ -33,6 +32,19 @@ export const Login = ({ navigation }) => {
     });
 
     if (response.error) {
+      setError(response.error);
+    }
+
+    setLoading(false);
+  };
+
+  onGoogleSignInPressed = async () => {
+    if(loading) return;
+
+    setLoading(true)
+    const response = await signInWithGoogle();
+
+    if(response.error){
       setError(response.error);
     }
 
@@ -91,6 +103,15 @@ export const Login = ({ navigation }) => {
       >
         Login
       </Button>
+      </View>
+
+      <View>
+      <GoogleSigninButton
+        style={{ width: 192, height: 48 }}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={() => onGoogleSignInPressed()}
+      />
       </View>
 
       <View style = {style.signUp}>
