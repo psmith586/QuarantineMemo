@@ -101,14 +101,14 @@ export const Login = ({ navigation }) => {
       </Button>
       </View>
 
-      <View>
+      <Text style = {style.text}>OR</Text>
+
       <GoogleSigninButton
-        style={{ width: 192, height: 48 }}
+        style={style.google}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
         onPress={() => onGoogleSignInPressed()}
       />
-      </View>
 
       <View style = {style.signUp}>
         <Text style = {style.text}>Don't Have an Account?</Text>
