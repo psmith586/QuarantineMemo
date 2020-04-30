@@ -5,9 +5,13 @@ import firestore from '@react-native-firebase/firestore'
 export const signUpUser = async ({ name, email, password }) => {
   try {
     await auth().createUserWithEmailAndPassword(email, password);
-    auth().currentUser.updateProfile({
-      displayName: name
-    });
+    auth()
+      .currentUser
+      .updateProfile(
+      {
+        displayName: name
+      }
+    );
 
     let userID = auth().currentUser.uid;
     let newUserDoc = {
@@ -16,7 +20,9 @@ export const signUpUser = async ({ name, email, password }) => {
       email: email
     };
 
-    firestore().collection('users').add(newUserDoc);
+    firestore()
+      .collection('users')
+      .add(newUserDoc);
 
     return {};
   } catch (error) {
