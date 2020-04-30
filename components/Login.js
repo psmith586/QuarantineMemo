@@ -42,11 +42,7 @@ export const Login = ({ navigation }) => {
     if(loading) return;
 
     setLoading(true)
-    const response = await signInWithGoogle();
-
-    if(response.error){
-      setError(response.error);
-    }
+    await signInWithGoogle();
 
     setLoading(false);
   };
