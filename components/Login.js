@@ -1,11 +1,10 @@
 import React, { memo, useState } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native'
 import { emailValidator, passwordValidator } from './utils/validator'
-import { loginUser } from './utils/api'
-import { Header } from 'react-native/Libraries/NewAppScreen'
-import { Appbar, TextInput, Button, List } from 'react-native-paper';
-import { Provider as PaperProvider } from 'react-native-paper';
-
+import { loginUser, signInWithGoogle } from './utils/api'
+import { Appbar, TextInput, Button } from 'react-native-paper';
+import { GoogleSigninButton } from '@react-native-community/google-signin'
+ 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState({ value:'', error: '' });
   const [password, setPassword] = useState({ value:'', error: '' });
@@ -35,6 +34,15 @@ export const Login = ({ navigation }) => {
     if (response.error) {
       setError(response.error);
     }
+
+    setLoading(false);
+  };
+
+  onGoogleSignInPressed = async () => {
+    if(loading) return;
+
+    setLoading(true)
+    await signInWithGoogle();
 
     setLoading(false);
   };
@@ -89,6 +97,15 @@ export const Login = ({ navigation }) => {
         Login
       </Button>
       </View>
+
+      <Text style = {style.text}>OR</Text>
+
+      <GoogleSigninButton
+        style={style.google}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
+        onPress={() => onGoogleSignInPressed()}
+      />
 
       <View style = {style.signUp}>
         <Text style = {style.text}>Don't Have an Account?</Text>
