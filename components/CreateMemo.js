@@ -80,8 +80,8 @@ export const CreateMemo = ({ navigation }) => {
 
   };
 
-  const getLocaton = async () => {
-    await Geolocation.getCurrentPosition(position => {
+  const getLocaton = () => {
+    Geolocation.getCurrentPosition(position => {
       const location = JSON.stringify(position);
       setGeoLocation({ value: location });
     },

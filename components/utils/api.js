@@ -68,6 +68,14 @@ export const signInWithGoogle = async () => {
 
     await auth().signInWithCredential(credential);
 
+      auth()
+        .currentUser
+        .updateProfile(
+          {
+            displayName: data.user.name
+          }
+        );
+
       let newUserDoc = {
         userID: auth().currentUser.uid,
         username: auth().currentUser.displayName,
