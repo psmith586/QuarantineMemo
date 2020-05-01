@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import DatePicker from 'react-native-datepicker'
 import { createMemo } from './utils/db-api'
+import Geolocation from '@react-native-community/geolocation'
 
 export const CreateMemo = ({ navigation }) => {
 
@@ -80,7 +80,7 @@ export const CreateMemo = ({ navigation }) => {
   }; 
 
   const getLocaton = async () => {
-    await navigator.geolocation.getCurrentPosition(position => {
+    await Geolocation.getCurrentPosition(position => {
       console.log(position);
       const location = JSON.stringify(position);
       setGeoLocation({geoLocation: location});

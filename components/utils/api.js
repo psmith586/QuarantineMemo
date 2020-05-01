@@ -40,15 +40,7 @@ export const loginUser = async ({ email, password }) => {
 };
 
 export const logoutUser = () => {
-  let user = auth().currentUser;
-  let googleUser = GoogleSignin.getCurrentUser()
-  if(user){ 
-    auth().signOut();
-  } else if(googleUser){
-    GoogleSignin.revokeAccess();
-    GoogleSignin.signOut();
-  }
-
+  auth().signOut;
 };
 
 //google sign in handlers
