@@ -36,6 +36,7 @@ export const Memos = ({ navigation }) => {
   }, []);
 
   function getNumOfLocations(data) {
+    if (data.location == null) return 0;
     return (data.location.split(", ").length);
   }
 
