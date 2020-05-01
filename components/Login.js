@@ -109,7 +109,7 @@ export const Login = ({ navigation }) => {
 
       <View style = {style.signUp}>
         <Text style = {style.text}>Don't Have an Account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+        <TouchableOpacity onPress={() => navigation.navigate('sign up')}>
           <Text style = {style.linkText}>Sign Up</Text>
         </TouchableOpacity>
       </View>

@@ -118,7 +118,7 @@ export const SignUp = ({ navigation }) => {
 
       <View style = {style.signUp}>
         <Text style = {style.text}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity onPress={() => navigation.navigate('login')}>
           <Text style = {style.linkText}>Login</Text>
         </TouchableOpacity>
       </View>
