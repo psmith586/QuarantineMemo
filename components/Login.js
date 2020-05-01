@@ -40,8 +40,8 @@ export const Login = ({ navigation }) => {
 
   onGoogleSignInPressed = async () => {
     if(loading) return;
-
-    setLoading(true)
+    setLoading(true);
+    
     await signInWithGoogle();
 
     setLoading(false);
@@ -104,7 +104,7 @@ export const Login = ({ navigation }) => {
         style={style.google}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
-        onPress={() => onGoogleSignInPressed()}
+        onPress={onGoogleSignInPressed}
       />
 
       <View style = {style.signUp}>
@@ -147,7 +147,7 @@ const style = StyleSheet.create({
         paddingTop: 30,
         backgroundColor: "#E0E6ED",
         width: 350,
-        height: 300,
+        height: 370,
         alignItems: 'center',
         paddingBottom: 50,
         borderRadius: 5

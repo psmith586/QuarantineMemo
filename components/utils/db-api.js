@@ -17,7 +17,9 @@ export const createMemo = async (
     hasThroat, 
     note 
   }) => {
+  
     try{
+      
       let userId = auth().currentUser.uid;
 
       let newMemo = {
@@ -25,6 +27,7 @@ export const createMemo = async (
         date: date,
         temp: temp,
         location: location,
+        geoLocation: geoLocation,
         cough: hasCough,
         fever: hasFever,
         fatigue: hasFatigue,

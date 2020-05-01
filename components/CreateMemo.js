@@ -1,14 +1,16 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import DatePicker from 'react-native-datepicker'
 import { createMemo } from './utils/db-api'
+import Geolocation from '@react-native-community/geolocation'
 
 export const CreateMemo = ({ navigation }) => {
 
   const [date, setDate] = useState({ value: '2020-04-23'});
   const [temp, setTemp] = useState({ value: '' });
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({ value: '' });
+  const [geoLocation, setGeoLocation] = useState({ value: '' });
   const [cough, setCough] = useState({ checked: false });
   const [fever, setFever] = useState({ checked: false });
   const [fatigue, setFatigue] = useState({ checked: false });
@@ -25,12 +27,14 @@ export const CreateMemo = ({ navigation }) => {
   const setInitialState = () => {
     setTemp({value: ''})
     setDate({ value: '2020-04-23' })
-    setLocation({});
+    setLocation({ value: '' });
+    setGeoLocation({ value: '' });
     setNote({ value: '' });
     setCough({ checked: false });
     setFever({ checked: false });
     setFatigue({ checked: false });
     setBreathing({ checked: false });
+    setLoading(false);
   };
 
   const onSubmitPressed = async () => {
@@ -52,7 +56,8 @@ export const CreateMemo = ({ navigation }) => {
     const response = await createMemo({
       date: date.value,
       temp: temp.value,
-      location: location.value, 
+      location: location.value,
+      geoLocation: geoLocation.value,
       hasCough: hasCough,
       hasFever: hasFever,
       hasFatigue: hasFatigue,
@@ -85,11 +90,22 @@ export const CreateMemo = ({ navigation }) => {
     );
   };
 
+  const getLocaton = async () => {
+    await Geolocation.getCurrentPosition(position => {
+      const location = JSON.stringify(position);
+      setGeoLocation({ value: location });
+    },
+    error => Alert.alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
+
   return(
     <ScrollView>
       <Appbar>
         <Appbar.Action icon="menu" onPress={() => navigation.toggleDrawer()} />
         <Appbar.Content title={'Create Memo'}/>
+        <Appbar.Action icon="magnify" onPress={() => console.log('Pressed search')} />
       </Appbar>
 
       {/*date*/}
@@ -137,6 +153,15 @@ export const CreateMemo = ({ navigation }) => {
           Set Location
         </Button>
       </View>
+
+      <Text style = {style.or}>OR</Text>
+
+      <View style = {style.fieldViewInput}>
+        <Button style = {style.button} onPress={() => getLocaton()}>
+          Set Location
+        </Button>
+      </View>
+
 
       <View style={style.fieldView}>
           <Image source={require('./resources/symptoms.png')} style={style.fieldViewIcon}/>
@@ -240,7 +265,11 @@ export const CreateMemo = ({ navigation }) => {
         />
       </View>
 
-      <Button onPress={() => onSubmitPressed()} style = {style.submit}>Submit</Button>
+      <View style = {style.fieldViewInput}>
+      <Button onPress={() => onSubmitPressed()} style = {style.button}>Submit</Button>
+      </View>
+
+      <View style = {{height:30}}></View>
 
     </ScrollView>
   );
@@ -286,9 +315,17 @@ const style = StyleSheet.create({
     color: '#0D3B66',
     fontSize: 16
   },
-  submit: {
-    marginTop: 30,
+  button: {
+    marginTop: 10,
+    width: 300,
+    backgroundColor: "#E0E6ED"
+  },
+  or: {
+    marginLeft: 65,
+    fontSize: 18,
+    marginTop: 13,
+    color: "#336699"
   }
 });
 
-export default memo(CreateMemo);
+export default CreateMemo;
