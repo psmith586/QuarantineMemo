@@ -4,8 +4,11 @@ import React, { memo } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Appbar, Button, List, DefaultTheme} from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Memos } from './Memos';
 
 export const MemoView = ({ route, navigation }) => {
+  
+  if(route.params === undefined) return Memos({navigation});
   const { id, data } = route.params; // we will need to pass id to "edit memo"
 
   return (    
