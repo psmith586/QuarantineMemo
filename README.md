@@ -21,7 +21,6 @@ Follow steps to create an Project with an Android App in Firebase Console
 $ git clone repo
 
 --> copy "google-services.json" to ./android/app/
-
 --> create a file "local.properties" in ./android/ (if it does not already exist)
 
 GOTO "SDK Manager" in Android Studio
@@ -35,7 +34,6 @@ $ ./gradlew clean
 
 Build:
 --------
-
 Android Studio:
 
 open android/ in Android Studio (gradle should sync automatically)
