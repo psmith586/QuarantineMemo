@@ -40,7 +40,8 @@ export const loginUser = async ({ email, password }) => {
 };
 
 export const logoutUser = () => {
-  auth().signOut;
+  auth().signOut();
+  
 };
 
 //google sign in handlers

@@ -92,7 +92,7 @@ export const Login = ({ navigation }) => {
         title='Login' 
         loading={loading} 
         mode='contained' 
-        onPress={onLoginPressed}
+        onPress={() => onLoginPressed()}
       >
         Login
       </Button>
