@@ -78,7 +78,17 @@ export const CreateMemo = ({ navigation }) => {
       navigation.navigate('memos'); 
     }
 
-  }; 
+  };
+  
+  const getLocaton = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const location = JSON.stringify(position);
+      setLocation(location);    
+    },
+    error => Alert.alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
 
   const getLocaton = async () => {
     await Geolocation.getCurrentPosition(position => {
@@ -139,13 +149,9 @@ export const CreateMemo = ({ navigation }) => {
           <Text style={style.fieldViewTitle}>Location(s)</Text>
       </View>
       <View style = {style.fieldViewInput}>
-        <TextInput
-        placeholder='Type your location(s) here'
-        returnKeyType='next'
-        value={location.value}
-        onChangeText={text => setLocation({ value: text })}
-        style = {style.fieldViewInputText}
-        />
+        <Button onPress={() => getLocaton()}>
+          Set Location
+        </Button>
       </View>
 
       <Text style = {style.or}>OR</Text>
