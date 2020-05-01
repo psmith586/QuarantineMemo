@@ -40,8 +40,8 @@ export const Login = ({ navigation }) => {
 
   onGoogleSignInPressed = async () => {
     if(loading) return;
-
-    setLoading(true)
+    setLoading(true);
+    
     await signInWithGoogle();
 
     setLoading(false);
@@ -92,7 +92,7 @@ export const Login = ({ navigation }) => {
         title='Login' 
         loading={loading} 
         mode='contained' 
-        onPress={() => onLoginPressed()}
+        onPress={onLoginPressed}
       >
         Login
       </Button>
@@ -104,7 +104,7 @@ export const Login = ({ navigation }) => {
         style={style.google}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
-        onPress={() => onGoogleSignInPressed()}
+        onPress={onGoogleSignInPressed}
       />
 
       <View style = {style.signUp}>

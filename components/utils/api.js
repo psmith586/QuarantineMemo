@@ -41,6 +41,8 @@ export const loginUser = async ({ email, password }) => {
 
 export const logoutUser = () => {
   auth().signOut();
+  GoogleSignin.revokeAccess();
+  GoogleSignin.signOut();
   
 };
 
