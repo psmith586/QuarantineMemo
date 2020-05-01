@@ -10,7 +10,7 @@ export const CreateMemo = ({ navigation }) => {
   const [date, setDate] = useState({ value: '2020-04-23'});
   const [temp, setTemp] = useState({ value: '' });
   const [location, setLocation] = useState({ value: '' });
-  const [geoLocation, setGeoLocation] = useState({geoLocation: null });
+  const [geoLocation, setGeoLocation] = useState({ value: '' });
   const [cough, setCough] = useState({ checked: false });
   const [fever, setFever] = useState({ checked: false });
   const [fatigue, setFatigue] = useState({ checked: false });
@@ -28,7 +28,7 @@ export const CreateMemo = ({ navigation }) => {
     setTemp({value: ''})
     setDate({ value: '2020-04-23' })
     setLocation({ value: '' });
-    setGeoLocation({ geoLocation: null });
+    setGeoLocation({ value: '' });
     setNote({ value: '' });
     setCough({ checked: false });
     setFever({ checked: false });
@@ -81,9 +81,8 @@ export const CreateMemo = ({ navigation }) => {
 
   const getLocaton = async () => {
     await Geolocation.getCurrentPosition(position => {
-      console.log(position);
       const location = JSON.stringify(position);
-      setGeoLocation({geoLocation: location});
+      setGeoLocation({ value: location });
     },
     error => Alert.alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
