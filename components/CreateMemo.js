@@ -138,12 +138,7 @@ export const CreateMemo = ({ navigation }) => {
           <Image source={require('./resources/location.png')} style={style.fieldViewIcon}/>
           <Text style={style.fieldViewTitle}>Location(s)</Text>
       </View>
-      <View style = {style.fieldViewInput}>
-        <Button onPress={() => getLocaton()}>
-          Set Location
-        </Button>
-      </View>
-
+      
       <Text style = {style.or}>OR</Text>
 
       <View style = {style.fieldViewInput}>
