@@ -1,39 +1,25 @@
 # QuarantineMemo
 
-set up: 
----------
+Requirements 
+------------
 
-install android studio with...
-SDK Platforms
-  
-SDK: 9.0 (Pie)
-platform: 28
-Sources: for 28
-Google APIs: both available images
-Google Play: both available images
-
-SDK Tools
-  
-build-tools: 28.03 (29.03 also installed)
+Android Studio
+build-tools: latest
 SDK command line tools: latest
-Android Emulator: 30.05
-SDK platform tools: 29.06
+Android Emulator: 30^
+SDK platform tools: 29^
 Intell HAXM installer: latest
 
-Emulator
-  
-Pixel 3a API 28
-
-init:
---------
-download "google-services.json" from online firebase GUI
-download "Android Studio" and set up Emulator 
+Initialize:
+-----------
+Follow steps to create an Project with an Android App in Firebase Console  
 
 $ git clone repo
 
-copy "google-services.json" to ./android/app/
+--> copy "google-services.json" to ./android/app/
 
-create a file "local.properties" in ./android/
+--> create a file "local.properties" in ./android/ (if it does not already exist)
+
 GOTO "SDK Manager" in Android Studio
 Copy "Android SDK Location:"
 Write "sdk.dir = Android SDK Location" into local.properties
@@ -43,18 +29,31 @@ $ npm install
 $ cd android 
 $ ./gradlew clean
 
-build:
+Build:
 --------
+
+Android Studio:
+
 open android/ in Android Studio (gradle should sync automatically)
 Click "Build" (hammer icon)
 
-run:
+Node:
+cd android && ./gradlew clean
+
+Run:
 ---------
-QuarantineMemo$ npm start 
+Step 1:
 
-//mock js server should start, react native icon displayed in shell
-//in android studio configuration button should display 'app' with emulator //Pixel 3...
+--> Start Metro Server:
 
-Click Run 'app' in Android Studio (play button)
+  QuarantineMemo$ npm start 
 
-//emulator should begin compiling code from mock server and display the app
+Step 2 (choose 1):
+
+  --> Android Studio:
+
+  Click Run 'app' in Android Studio (play button)
+
+  --> 2nd terminal (with metro server running in first terminal)
+  
+  QuarantineMemo$ react-native run-android
