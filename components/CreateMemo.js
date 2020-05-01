@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { TextInput, Appbar, Button, Checkbox } from 'react-native-paper'
 import DatePicker from 'react-native-datepicker'
@@ -34,6 +34,7 @@ export const CreateMemo = ({ navigation }) => {
     setFever({ checked: false });
     setFatigue({ checked: false });
     setBreathing({ checked: false });
+    setLoading(false);
   };
 
   const onSubmitPressed = async () => {
@@ -321,4 +322,4 @@ const style = StyleSheet.create({
   }
 });
 
-export default memo(CreateMemo);
+export default CreateMemo;
