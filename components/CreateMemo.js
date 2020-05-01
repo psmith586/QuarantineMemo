@@ -34,6 +34,7 @@ export const CreateMemo = ({ navigation }) => {
     setFever({ checked: false });
     setFatigue({ checked: false });
     setBreathing({ checked: false });
+    setLoading(false);
   };
 
   const onSubmitPressed = async () => {
