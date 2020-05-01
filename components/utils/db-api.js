@@ -5,7 +5,8 @@ export const createMemo = async (
   { 
     date,
     temp,
-    location, 
+    location,
+    geoLocation, 
     hasCough, 
     hasFever, 
     hasFatigue, 
