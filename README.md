@@ -4,6 +4,8 @@ Description
 ------------
 The main purpose of Quarantine Memo is to allow the user to keep track of their symptoms and whereabouts daily so this information can help health officials treat patients who are COVID-19 positive more effectively--potentially saving many lives.
 
+Video Demonstration: https://www.youtube.com/watch?v=Sr88OL4tS4E
+
 Requirements 
 ------------
 
