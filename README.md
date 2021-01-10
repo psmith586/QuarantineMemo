@@ -1,10 +1,14 @@
 # QuarantineMemo
 
+![Alt text](/images/process.png?raw=true "Process")
+
+![Alt text](/images/db.png?raw=true "DB")
+
 Description
 ------------
 The main purpose of Quarantine Memo is to allow the user to keep track of their symptoms and whereabouts daily so this information can help health officials treat patients who are COVID-19 positive more effectively--potentially saving many lives.
 
-Video Demonstration: https://www.youtube.com/watch?v=Sr88OL4tS4E
+**Video Demonstration: https://www.youtube.com/watch?v=Sr88OL4tS4E**
 
 Requirements 
 ------------
@@ -61,3 +65,11 @@ Step 2 (choose 1):
   --> 2nd terminal (with metro server running in first terminal)
   
   QuarantineMemo$ react-native run-android
+  
+  ## More Pictures
+  
+  ![Alt text](/images/memo1.png?raw=true "Memo1")
+  
+  ![Alt text](/images/memo2.png?raw=true "Memo2")
+  
+  ![Alt text](/images/memo3.png?raw=true "Memo3")
