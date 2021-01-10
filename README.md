@@ -8,6 +8,8 @@
 
 Description
 ------------
+This project was developed remotely in the beginning of the COVID-19 pandemic. The project was developed to compete in **Google's Developer Student Club's Spring 2020 Competition**. Most communication was done through the application **Discord**. No students knew each other before hand but came together to create the final product. The team was composed of 4 students: a Team Lead, a Frontend Lead, a Backend Lead, and a Backend Developer.
+
 The main purpose of Quarantine Memo is to allow the user to keep track of their symptoms and whereabouts daily so this information can help health officials treat patients who are COVID-19 positive more effectively--potentially saving many lives.
 
 **Video Demonstration: https://www.youtube.com/watch?v=Sr88OL4tS4E**
