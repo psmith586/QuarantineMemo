@@ -1,7 +1,9 @@
 # QuarantineMemo
 
+**Process**
 ![Alt text](/images/process.png?raw=true "Process")
 
+**Firebase**
 ![Alt text](/images/db.png?raw=true "DB")
 
 Description
@@ -68,8 +70,11 @@ Step 2 (choose 1):
   
   ## More Pictures
   
-  ![Alt text](/images/memo1.png?raw=true "Memo1")
+  **View of Memos**
+  ![Alt text](/images/memo1.png?raw=true "View of Memos")
   
-  ![Alt text](/images/memo2.png?raw=true "Memo2")
+  **Create a Memo**
+  ![Alt text](/images/memo2.png?raw=true "Create a Memo")
   
-  ![Alt text](/images/memo3.png?raw=true "Memo3")
+  **Safety Information**
+  ![Alt text](/images/memo3.png?raw=true "Safety Information")
