@@ -76,11 +76,14 @@ Step 2 (choose 1):
   
   ## More Pictures
   
-  **View of Memos**
+  #### View of Memos
+  
   ![Alt text](/images/memo1.png?raw=true "View of Memos")
   
-  **Create a Memo**
+  #### Create a Memo
+  
   ![Alt text](/images/memo2.png?raw=true "Create a Memo")
   
-  **Safety Information**
+  #### Safety Information
+  
   ![Alt text](/images/memo3.png?raw=true "Safety Information")
